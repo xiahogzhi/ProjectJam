@@ -1,0 +1,193 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 716e004b64213244a8167d2da0861f40, type: 3}
+  m_Name: PipelineRegistry
+  m_EditorClassIdentifier: Azathrix.Framework.Runtime::Azathrix.Framework.Core.Pipeline.PipelineRegistry
+  pipelines:
+  - pipelineId: EditorLauncher
+    displayName: "\u7F16\u8F91\u5668\u542F\u52A8(EditorLauncher)"
+    pipelineTypeName: Azathrix.Framework.Editor.Launcher.EditorLauncherPipeline
+    pipelineAssembly: Azathrix.Framework.Editor
+    phases:
+    - typeName: Azathrix.Framework.Editor.Launcher.DefaultPhases.EditorInitPhase
+      assemblyName: Azathrix.Framework.Editor
+      displayName: EditorInit
+      phaseId: EditorInit
+      interfaceTypeName: Azathrix.Framework.Editor.Launcher.IEditorLauncherPhase
+      order: 500
+      defaultOrder: 500
+      hasCustomOrder: 0
+      enabled: 1
+      isAuto: 1
+    - typeName: Azathrix.Framework.Editor.Launcher.DefaultPhases.EditorRegisterPhase
+      assemblyName: Azathrix.Framework.Editor
+      displayName: EditorRegister
+      phaseId: EditorRegister
+      interfaceTypeName: Azathrix.Framework.Editor.Launcher.IEditorLauncherPhase
+      order: 300
+      defaultOrder: 300
+      hasCustomOrder: 0
+      enabled: 1
+      isAuto: 1
+    - typeName: Azathrix.Framework.Editor.Launcher.DefaultPhases.EditorScanPhase
+      assemblyName: Azathrix.Framework.Editor
+      displayName: EditorScan
+      phaseId: EditorScan
+      interfaceTypeName: Azathrix.Framework.Editor.Launcher.IEditorLauncherPhase
+      order: 200
+      defaultOrder: 200
+      hasCustomOrder: 0
+      enabled: 1
+      isAuto: 1
+    - typeName: Azathrix.Framework.Editor.Launcher.DefaultPhases.EditorSetupPhase
+      assemblyName: Azathrix.Framework.Editor
+      displayName: EditorSetup
+      phaseId: EditorSetup
+      interfaceTypeName: Azathrix.Framework.Editor.Launcher.IEditorLauncherPhase
+      order: 0
+      defaultOrder: 0
+      hasCustomOrder: 0
+      enabled: 1
+      isAuto: 1
+    - typeName: Azcel.Editor.AzcelEditorLoadPhase
+      assemblyName: Azcel.Editor
+      displayName: AzcelEditorLoad
+      phaseId: AzcelEditorLoad
+      interfaceTypeName: Azathrix.Framework.Editor.Launcher.IEditorLauncherPhase
+      order: 520
+      defaultOrder: 520
+      hasCustomOrder: 0
+      enabled: 1
+      isAuto: 1
+    hooks: []
+  - pipelineId: Launcher
+    displayName: "\u8FD0\u884C\u65F6\u542F\u52A8(Launcher)"
+    pipelineTypeName: Azathrix.Framework.Core.Launcher.LauncherPipeline
+    pipelineAssembly: Azathrix.Framework.Runtime
+    phases:
+    - typeName: Azathrix.Framework.Core.Launcher.DefaultPhases.RegisterPhase
+      assemblyName: Azathrix.Framework.Runtime
+      displayName: Register
+      phaseId: Register
+      interfaceTypeName: Azathrix.Framework.Core.Launcher.ILauncherPhase
+      order: 300
+      defaultOrder: 300
+      hasCustomOrder: 0
+      enabled: 1
+      isAuto: 1
+    - typeName: Azathrix.Framework.Core.Launcher.DefaultPhases.ScanPhase
+      assemblyName: Azathrix.Framework.Runtime
+      displayName: Scan
+      phaseId: Scan
+      interfaceTypeName: Azathrix.Framework.Core.Launcher.ILauncherPhase
+      order: 200
+      defaultOrder: 200
+      hasCustomOrder: 0
+      enabled: 1
+      isAuto: 1
+    - typeName: Azathrix.Framework.Core.Launcher.DefaultPhases.SetupPhase
+      assemblyName: Azathrix.Framework.Runtime
+      displayName: Setup
+      phaseId: Setup
+      interfaceTypeName: Azathrix.Framework.Core.Launcher.ILauncherPhase
+      order: 0
+      defaultOrder: 0
+      hasCustomOrder: 0
+      enabled: 1
+      isAuto: 1
+    - typeName: Azathrix.Framework.Core.Launcher.DefaultPhases.StartPhase
+      assemblyName: Azathrix.Framework.Runtime
+      displayName: Start
+      phaseId: Start
+      interfaceTypeName: Azathrix.Framework.Core.Launcher.ILauncherPhase
+      order: 500
+      defaultOrder: 500
+      hasCustomOrder: 0
+      enabled: 1
+      isAuto: 1
+    - typeName: Azcel.AzceLoadPhase
+      assemblyName: Azcel
+      displayName: AzceLoadPhase
+      phaseId: AzceLoadPhase
+      interfaceTypeName: Azathrix.Framework.Core.Launcher.ILauncherPhase
+      order: 430
+      defaultOrder: 430
+      hasCustomOrder: 0
+      enabled: 1
+      isAuto: 1
+    hooks: []
+  - pipelineId: Azcel.Converter
+    displayName: "Azcel\u914D\u7F6E\u8F6C\u6362(Azcel.Converter)"
+    pipelineTypeName: Azcel.Editor.ConfigConverter
+    pipelineAssembly: Azcel.Editor
+    phases:
+    - typeName: Azcel.Editor.CodeGenPhase
+      assemblyName: Azcel.Editor
+      displayName: CodeGen
+      phaseId: CodeGen
+      interfaceTypeName: Azcel.Editor.IConvertPhase
+      order: 400
+      defaultOrder: 400
+      hasCustomOrder: 0
+      enabled: 1
+      isAuto: 1
+    - typeName: Azcel.Editor.DataExportPhase
+      assemblyName: Azcel.Editor
+      displayName: DataExport
+      phaseId: DataExport
+      interfaceTypeName: Azcel.Editor.IConvertPhase
+      order: 500
+      defaultOrder: 500
+      hasCustomOrder: 0
+      enabled: 1
+      isAuto: 1
+    - typeName: Azcel.Editor.InheritancePhase
+      assemblyName: Azcel.Editor
+      displayName: Inheritance
+      phaseId: Inheritance
+      interfaceTypeName: Azcel.Editor.IConvertPhase
+      order: 250
+      defaultOrder: 250
+      hasCustomOrder: 0
+      enabled: 1
+      isAuto: 1
+    - typeName: Azcel.Editor.ReferenceResolvePhase
+      assemblyName: Azcel.Editor
+      displayName: ReferenceResolve
+      phaseId: ReferenceResolve
+      interfaceTypeName: Azcel.Editor.IConvertPhase
+      order: 300
+      defaultOrder: 300
+      hasCustomOrder: 0
+      enabled: 1
+      isAuto: 1
+    - typeName: Azcel.Editor.TableMergePhase
+      assemblyName: Azcel.Editor
+      displayName: TableMerge
+      phaseId: TableMerge
+      interfaceTypeName: Azcel.Editor.IConvertPhase
+      order: 200
+      defaultOrder: 200
+      hasCustomOrder: 0
+      enabled: 1
+      isAuto: 1
+    - typeName: Azcel.Editor.ValidationPhase
+      assemblyName: Azcel.Editor
+      displayName: Validate
+      phaseId: Validate
+      interfaceTypeName: Azcel.Editor.IConvertPhase
+      order: 350
+      defaultOrder: 350
+      hasCustomOrder: 0
+      enabled: 1
+      isAuto: 1
+    hooks: []
