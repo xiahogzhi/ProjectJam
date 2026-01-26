@@ -89,7 +89,7 @@ namespace Framework.Commands.Core
                 if ((int) c == (int) upper)
                 {
                     score += num2;
-                 
+
                     num2 += 20;
 
                     ++index;
@@ -114,11 +114,10 @@ namespace Framework.Commands.Core
             for (int i = 0; i < text.Length && i < searchTerm.Length; i++)
             {
                 if (char.ToLower(searchTerm[i]) == char.ToLower(text[i]))
-                { 
+                {
                     var t = 1f - i / (float) text.Length;
-                    score += (int) ( Mathf.Pow(Mathf.Lerp(0,3,t),3));                    
+                    score += (int) (Mathf.Pow(Mathf.Lerp(0, 3, t), 3));
                 }
-
             }
 
             score -= length2 - index;

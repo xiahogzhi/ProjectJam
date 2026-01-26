@@ -19,10 +19,10 @@ MonoBehaviour:
   defaultFullScreenPopUIInputScheme: UI
   defaultFloatingPopUIInputScheme: 
   inputSchemeSwitchMode: 1
-  inputSchemeHandler: {fileID: 0}
   autoCreateUIRoot: 1
   autoCreatedUIRootName: '[UIRoot]'
   autoCreateEventSystem: 1
   autoCreateUICamera: 1
-  maskColor: {r: 0, g: 0, b: 0, a: 0.95}
-  maskClickable: 1
+  maskColor: {r: 0, g: 0, b: 0, a: 0.56078434}
+  maskClickable: 0
+  blockInputDuringAnimation: 1

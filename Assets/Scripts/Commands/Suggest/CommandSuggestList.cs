@@ -2,7 +2,7 @@
 
 namespace Framework.Commands.Suggest
 {
-    public class CommandSuggestList<T> : List<SuggestItem<T>>
+    public class CommandSuggestList<T> : List<SuggestItem<T>> 
     {
         public void Add(string name, T value, string comment = null)
             => this.Add(new SuggestItem<T>(name, value, comment));

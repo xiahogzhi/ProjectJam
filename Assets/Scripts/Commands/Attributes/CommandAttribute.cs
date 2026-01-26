@@ -9,7 +9,7 @@ namespace Framework.Commands.Attributes
 
         public string comment { set; get; }
 
-        public CommandAttribute(string name = null, string comment = null)
+        public CommandAttribute(string name, string comment = null)
         {
             this.name = name;
             this.comment = comment;

@@ -2,6 +2,7 @@ using System;
 using System.Text;
 using Framework.Commands.Suggest;
 using Framework.Commands.View;
+using Framework.Games;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,7 +13,6 @@ namespace Framework.Commands.Core
     {
         [SerializeField] private ConsoleContent _consoleContent;
         [SerializeField] private TMP_InputField _input;
-        [SerializeField] private bool _activeOnStart = true;
 
         [SerializeField] private RectTransform _popWindow;
         [SerializeField] private TextMeshProUGUI _popText;
@@ -23,6 +23,9 @@ namespace Framework.Commands.Core
 
         public SuggestBuilder currentSuggestBuilder { private get; set; }
         public Command currentCommand { private get; set; }
+        
+        
+        public event Action<bool> OnActiveChanged;
 
 
         // SuggestBuilder<ISuggestItem> GetParamSuggestItem()
@@ -49,13 +52,17 @@ namespace Framework.Commands.Core
 
         private int _lastCaretPosition;
 
-        public event Action<bool> OnActiveChanged;
-
         public bool isActive
         {
             get => _isActive;
             set
             {
+                // if (value)
+                // {
+                //     if (!Game.launcher.useConsole)
+                //         return;
+                // }
+
                 _isActive = value;
 
                 _consoleContent.SetActive(value);
@@ -64,19 +71,21 @@ namespace Framework.Commands.Core
                     ClearCommand();
                     _input.SetTextWithoutNotify(null);
                     _input.ActivateInputField();
-                    OnActiveChanged?.Invoke(true);
+                    // Game.inputSystem.DisableInput(token);
+                    
                 }
                 else
                 {
+                    // Game.inputSystem.EnableInput(token);
                     CommandManager.instance.commandHistory.ResetIndex();
-                    OnActiveChanged?.Invoke(false);
                 }
+                
+                OnActiveChanged?.Invoke(value);
             }
         }
 
         private void Awake()
         {
-            DontDestroyOnLoad(gameObject);
             Application.logMessageReceived += MessageReceived;
             instance = this;
             CommandManager.instance.Load();
@@ -106,7 +115,6 @@ namespace Framework.Commands.Core
 
         private void Start()
         {
-            isActive = _activeOnStart;
 
             _input.onSubmit.AddListener((x) =>
             {
@@ -333,7 +341,7 @@ namespace Framework.Commands.Core
             SetPopActive(false);
         }
 
-        private Guid token { get; } = new();
+        // private Token token { get; } = Token.NewToken();
 
 
         // private void OnDisable()

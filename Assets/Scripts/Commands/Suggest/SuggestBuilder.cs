@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Framework.Commands.Core;
+using hyjiacan.py4n;
 
 namespace Framework.Commands.Suggest
 {
@@ -119,7 +120,7 @@ namespace Framework.Commands.Suggest
             {
                 searchResult.Clear();
                 isSearchMode = true;
-                var searchContent = suggest;
+                var searchContent = suggest.ToLower();
 
                 bool MacroCheck(string str1, string str2)
                 {
@@ -135,16 +136,17 @@ namespace Framework.Commands.Suggest
 
                 foreach (var variable in suggestList)
                 {
-                    // var full = variable.name + "|" + variable.normal + "|" + variable.value;
-                    var full = variable.name + "." + variable.comment;
-                    if (!MacroCheck(searchContent, full))
+                    if (!MacroCheck(searchContent, variable.normal))
                         continue;
-                    if (FuzzySearch.Contains(searchContent, full, out var s))
+
+                    PinyinFormat format = PinyinFormat.WITHOUT_TONE | PinyinFormat.LOWERCASE |
+                                          PinyinFormat.WITH_U_UNICODE;
+                    if (FuzzySearch.Contains(searchContent, variable.normal, out var s))
                     {
                         variable.priority = s;
                         searchResult.Add(variable);
                     }
-                    else if (FuzzySearch.Contains(searchContent, PinYinConverter.Get(full), out s))
+                    else if (FuzzySearch.Contains(searchContent, Pinyin4Net.GetPinyin(variable.normal, format), out s))
                     {
                         variable.priority = s;
                         searchResult.Add(variable);
@@ -152,10 +154,7 @@ namespace Framework.Commands.Suggest
                 }
 
                 searchResult = searchResult.OrderByDescending(x => x.priority).Select(x => x).ToList();
-                // foreach (var variable in searchResult)
-                // {
-                //     Log.Info(variable.name + " " + variable.priority);
-                // } 
+
                 // searchResult.Sort((x, y) =>
                 // {
                 //     var m1 = JaroWinklerSimilarity(searchContent, x.name);
@@ -278,22 +277,44 @@ namespace Framework.Commands.Suggest
 
         public class SuggestData
         {
-            public SuggestData(string normal, string high, string name, string comment, T value)
+            /// <summary>
+            /// 构造函数
+            /// </summary>
+            /// <param name="normal">显示的文本</param>
+            /// <param name="high">选中显示</param>
+            /// <param name="name">名字</param>
+            /// <param name="value">值</param>
+            public SuggestData(string normal, string high, string name, T value)
             {
-                this.comment = comment;
                 this.normal = normal;
                 this.high = high;
                 this.name = name;
                 this.value = value;
             }
 
+            /// <summary>
+            /// 显示的文本
+            /// </summary>
             public string normal { set; get; }
+
+            /// <summary>
+            /// 选中显示的文本
+            /// </summary>
             public string high { set; get; }
+
+            /// <summary>
+            /// 名字
+            /// </summary>
             public string name { set; get; }
 
-            public string comment { set; get; }
-
+            /// <summary>
+            /// 优先级
+            /// </summary>
             public int priority { set; get; }
+
+            /// <summary>
+            /// 值
+            /// </summary>
             public T value { set; get; }
         }
 
@@ -307,12 +328,13 @@ namespace Framework.Commands.Suggest
 
             var normal = $"{item.GetName()}{comment}";
             var high = $"<b><color=#FFF46C>> {item.GetName()}{comment}</color></b>";
-            suggestList.Add(new(normal, high, item.GetName(), item.GetComment(), (T) item));
+            suggestList.Add(new(normal, high, item.GetName(), (T) item));
         }
 
-        public void AddSuggest(string normalSuggest, string selectSuggest, string suggestName, T value)
+        public void AddSuggest(string normalSuggest, string selectSuggest, string suggestName,
+            T value)
         {
-            suggestList.Add(new(normalSuggest, selectSuggest, suggestName, null, value));
+            suggestList.Add(new(normalSuggest, selectSuggest, suggestName, value));
         }
 
         public void Clear()

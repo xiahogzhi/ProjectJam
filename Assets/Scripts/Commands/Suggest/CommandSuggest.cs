@@ -77,7 +77,7 @@ namespace Framework.Commands.Suggest
             List<(string, string)> m = new List<(string, string)>();
             foreach (var variable in commandManager.macro.macros)
                 m.Add((variable.name, null));
-
+            
             foreach (var variable in commandManager.macro.dynamicMacros)
                 m.Add((variable.name, variable.comment));
 

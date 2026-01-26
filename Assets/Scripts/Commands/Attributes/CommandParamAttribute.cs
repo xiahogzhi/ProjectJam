@@ -25,7 +25,7 @@ namespace Framework.Commands.Attributes
         /// </summary>
         public bool cacheSuggest { set; get; }
 
-        public CommandParamAttribute(string name = null, string comment = null, string suggestAction = null,
+        public CommandParamAttribute(string name, string comment = null, string suggestAction = null,
             bool cacheSuggest = true)
         {
             this.comment = comment;

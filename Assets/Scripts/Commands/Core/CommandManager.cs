@@ -61,8 +61,8 @@ namespace Framework.Commands.Core
 
             commands.Clear();
             var r =
-                from assembly in AppDomain.CurrentDomain.GetAssemblies()
-                from type in assembly.GetTypes()
+                // from assembly in AppDomain.CurrentDomain.GetAssemblies()
+                from type in Assembly.Load("Assembly-CSharp").GetTypes()
                 from method in type.GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static)
                 where method.IsDefined(typeof(CommandAttribute))
                 select new {type, method};

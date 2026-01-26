@@ -13,6 +13,27 @@ MonoBehaviour:
   m_Name: SystemRegistry
   m_EditorClassIdentifier: Azathrix.Framework.Runtime::Azathrix.Framework.Registry.SystemRegistry
   entries:
+  - typeName: GameLauncher
+    assemblyName: Assembly-CSharp
+    displayName: GameLauncher
+    enabled: 1
+    isDefault: 0
+    priority: 0
+    defaultPriority: 0
+    hasCustomPriority: 0
+    interfaces: []
+    dependencies:
+    - Azathrix.EzUI.Core.UISystem
+  - typeName: Azathrix.EzInput.Core.EzInputSystem
+    assemblyName: Azathrix.EzInput
+    displayName: EzInputSystem
+    enabled: 1
+    isDefault: 0
+    priority: 0
+    defaultPriority: 0
+    hasCustomPriority: 0
+    interfaces: []
+    dependencies: []
   - typeName: Azathrix.EzUI.Core.UISystem
     assemblyName: Azathrix.EzUI
     displayName: UISystem
