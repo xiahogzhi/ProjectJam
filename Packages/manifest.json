@@ -2,8 +2,8 @@
   "dependencies": {
     "com.azathrix.azcel": "1.0.2",
     "com.azathrix.environment-installer": "0.0.1",
-    "com.azathrix.ez-input": "1.0.2",
-    "com.azathrix.ezui": "1.0.6",
+    "com.azathrix.ez-input": "1.0.3",
+    "com.azathrix.ezui": "1.0.7",
     "com.azathrix.framework": "0.0.8",
     "com.azathrix.game-kit": "1.0.5",
     "com.azathrix.pack-flow": "1.0.2",

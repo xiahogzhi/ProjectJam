@@ -44,6 +44,16 @@ MonoBehaviour:
     hasCustomPriority: 0
     interfaces: []
     dependencies: []
+  - typeName: Azathrix.EzUI.Extensions.UIInputMapSystem
+    assemblyName: Azathrix.EzUI.Extensions
+    displayName: UIInputMapSystem
+    enabled: 1
+    isDefault: 0
+    priority: 0
+    defaultPriority: 0
+    hasCustomPriority: 0
+    interfaces: []
+    dependencies: []
   - typeName: Azcel.AzcelSystem
     assemblyName: Azcel
     displayName: AzcelSystem
