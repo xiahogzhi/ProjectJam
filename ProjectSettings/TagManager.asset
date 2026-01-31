@@ -52,6 +52,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Ground
+    uniqueID: 3859047031
+    locked: 0
   - name: Mask
     uniqueID: 3698199299
     locked: 0
