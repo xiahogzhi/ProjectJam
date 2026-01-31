@@ -11,6 +11,7 @@ using Azathrix.GameKit.Runtime.Extensions;
 using Cysharp.Threading.Tasks;
 using Framework.Games;
 using Sirenix.OdinInspector;
+using SoundSystems;
 using UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -91,6 +92,7 @@ public class PlayerController : GameScript
         {
             _rigidbody2D.linearVelocityY = 0;
             _rigidbody2D.AddForceY(_jumpForce, ForceMode2D.Impulse);
+            AzathrixFramework.GetSystem<SoundSystem>().PlaySoundEffect("event:/特效音效/Jump");
         }
     }
 
@@ -112,6 +114,8 @@ public class PlayerController : GameScript
 
         AzathrixFramework.Dispatcher.Dispatch<OnPlayerDead>();
 
+
+        AzathrixFramework.GetSystem<SoundSystem>().PlaySoundEffect("event:/特效音效/Dead");
         await _animator.PlayAsync("dead");
 
         AzathrixFramework.GetSystem<GamePlaySystem>().Replay();
@@ -147,6 +151,12 @@ public class PlayerController : GameScript
         // 先清空Y轴速度，避免与其他力叠加
         _rigidbody2D.linearVelocityY = 0;
         _rigidbody2D.AddForceY(velocity, ForceMode2D.Impulse);
+        AzathrixFramework.GetSystem<SoundSystem>().PlaySoundEffect("event:/特效音效/Jump");
+    }
+
+    public void FootstepSound()
+    {
+        AzathrixFramework.GetSystem<SoundSystem>().PlaySoundEffect("event:/特效音效/Move");
     }
 
     async void Rebirth()
@@ -154,6 +164,8 @@ public class PlayerController : GameScript
         _rigidbody2D.gravityScale = 0;
         var cancel = gameObject.GetCancellationTokenOnDestroy();
         await UniTask.WaitForSeconds(0.5f, true, cancellationToken: cancel);
+
+        AzathrixFramework.GetSystem<SoundSystem>().PlaySoundEffect("event:/特效音效/Rebirth");
         await _animator.PlayAsync("rebirth", cancel);
         _isStart = true;
         // _rigidbody2D.Unfreeze();
@@ -196,10 +208,7 @@ public class PlayerController : GameScript
 
         _hurtChecker.OnHurtEvent += () => { Dead(); };
 
-        _groundChecker.OnPlatformEnterEvent += transform1 =>
-        {
-            transform.SetParent(transform1);
-        };
+        _groundChecker.OnPlatformEnterEvent += transform1 => { transform.SetParent(transform1); };
 
 
         _groundChecker.OnGroundStateChangedEvent += b =>

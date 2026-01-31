@@ -13,14 +13,16 @@ public class GroundChecker : GameScript
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        // if (other.CompareTag("Platform"))
+        // {
+        //     var p = other.GetComponentInParent<PlatformMoveable>();
+        //     OnPlatformEnterEvent?.Invoke(p.transform);
+        // }
         if (other.CompareTag("Ground") || other.CompareTag("Wall") || other.CompareTag("Platform"))
         {
             if (_count == 0)
             {
                 OnGroundStateChangedEvent?.Invoke(true);
-
-                if (other.CompareTag("Platform"))
-                    OnPlatformEnterEvent?.Invoke(other.transform);
             }
 
             _count++;
@@ -29,14 +31,15 @@ public class GroundChecker : GameScript
 
     private void OnTriggerExit2D(Collider2D other)
     {
+        // if (other.CompareTag("Platform"))
+        //     OnPlatformEnterEvent?.Invoke(null);
         if (other.CompareTag("Ground") || other.CompareTag("Wall") || other.CompareTag("Platform"))
         {
             _count--;
             if (_count == 0)
             {
                 OnGroundStateChangedEvent?.Invoke(false);
-                if (other.CompareTag("Platform"))
-                    OnPlatformEnterEvent?.Invoke(null);
+               
             }
         }
     }

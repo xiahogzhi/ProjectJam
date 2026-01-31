@@ -48,6 +48,24 @@ public class GamePlaySystem : ISystem
         _loading = false;
     }
 
+    public async void EndGame()
+    {
+        if (_loading)
+            return;
+        Time.timeScale = 0;
+        _loading = true;
+        Log.Info(LoadingPanel.Instance);
+        Log.Info(_currentLevel.SceneName);
+        await LoadingPanel.Instance.ShowAsync();
+        await _uiSystem.ShowAsync<EndPanel>();
+        await SceneManager.LoadSceneAsync("Empty").ToUniTask();
+        await UniTask.WaitForSeconds(0.2f, true);
+        await LoadingPanel.Instance.HideAsync();
+
+        Time.timeScale = 1;
+        _loading = false;
+    }
+
     public async void ExitGame()
     {
         if (_loading)
@@ -72,6 +90,7 @@ public class GamePlaySystem : ISystem
     }
 
     private bool _loading;
+
     public async void Replay()
     {
         if (_loading)
@@ -84,14 +103,14 @@ public class GamePlaySystem : ISystem
         {
             Log.Error("不存在关卡:" + nextId);
             Time.timeScale = 1;
-            _loading = true;
+            _loading = false;
             return;
         }
 
         _currentLevel = config;
         ES3.Save(SaveKeys.LevelId, nextId);
-        
-        
+
+
         Log.Info(LoadingPanel.Instance);
         Log.Info(_currentLevel);
         await LoadingPanel.Instance.ShowAsync();
@@ -104,27 +123,27 @@ public class GamePlaySystem : ISystem
         Time.timeScale = 1;
         _loading = false;
     }
-    
+
     public async void GotoLevel(int nextLevel)
     {
         if (_loading)
             return;
         Time.timeScale = 0;
         _loading = true;
-        var nextId =nextLevel;
+        var nextId = nextLevel;
         var config = _azcelSystem.GetConfig<LevelConfig>(nextId);
         if (config == null)
         {
             Log.Error("不存在关卡:" + nextId);
             Time.timeScale = 1;
-            _loading = true;
+            _loading = false;
             return;
         }
 
         _currentLevel = config;
         ES3.Save(SaveKeys.LevelId, nextId);
-        
-        
+
+
         Log.Info(LoadingPanel.Instance);
         Log.Info(_currentLevel);
         await LoadingPanel.Instance.ShowAsync();
@@ -137,7 +156,7 @@ public class GamePlaySystem : ISystem
         Time.timeScale = 1;
         _loading = false;
     }
-    
+
     public async void NextLevel()
     {
         if (_loading)
@@ -148,16 +167,18 @@ public class GamePlaySystem : ISystem
         var config = _azcelSystem.GetConfig<LevelConfig>(nextId);
         if (config == null)
         {
-            Log.Error("不存在关卡:" + nextId);
+            Log.Error("结束游玩:" + nextId);
             Time.timeScale = 1;
-            _loading = true;
+            _loading = false;
+
+            EndGame();
             return;
         }
 
         _currentLevel = config;
         ES3.Save(SaveKeys.LevelId, nextId);
-        
-        
+
+
         Log.Info(LoadingPanel.Instance);
         Log.Info(_currentLevel);
         await LoadingPanel.Instance.ShowAsync();

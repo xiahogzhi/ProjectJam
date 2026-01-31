@@ -21,10 +21,10 @@ public class PlatformMoveable : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector2 newPosition = Vector2.MoveTowards(_rb.position, _targetPoint, _speed * Time.fixedDeltaTime);
-        _rb.MovePosition(newPosition);
+        Vector2 newPosition = Vector2.MoveTowards(transform.position, _targetPoint, _speed * Time.fixedDeltaTime);
+        transform.position = newPosition;
 
-        if (Vector2.Distance(_rb.position, _targetPoint) < 0.01f)
+        if (Vector2.Distance(transform.position, _targetPoint) < 0.01f)
         {
             _targetPoint = _targetPoint == _pointA ? _pointB : _pointA;
         }
