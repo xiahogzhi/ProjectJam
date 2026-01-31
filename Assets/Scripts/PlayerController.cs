@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Azathrix.EzInput.Core;
 using Azathrix.EzInput.Events;
+using Azathrix.EzUI.Events;
 using Azathrix.Framework.Core;
 using Azathrix.Framework.Tools;
 using Azathrix.GameKit.Runtime.Behaviours;
@@ -70,6 +71,7 @@ public class PlayerController : GameScript
 
     public bool isDead => _isDead;
 
+
     public struct OnPlayerDead
     {
     }
@@ -114,6 +116,16 @@ public class PlayerController : GameScript
     {
         if (_isDead)
             return;
+
+        if (_onGroundState)
+        {
+            if (flag)
+                _animator.Play("move");
+            else
+                _animator.Play("idle");
+        }
+
+
         _moveState = flag;
         if (!flag)
             _clearXVelocityFlag = true;
@@ -155,6 +167,22 @@ public class PlayerController : GameScript
             _onGroundState = b;
             if (_jumpCount <= 0 && b)
                 _jumpCount = 1;
+            if (!b)
+            {
+                _animator.Play("jump");
+            }
+            else
+            {
+                if (_moveState)
+                {
+                    _animator.Play("move");
+                }
+                else
+                {
+                    _animator.Play("idle");
+                }
+            }
+
             Log.Info("地面状态改变:" + _onGroundState);
         };
         _leftWallChecker.OnWallStateChangedEvent += b =>
