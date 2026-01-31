@@ -1,28 +1,22 @@
 fileFormatVersion: 2
-guid: 2549ec813f198de4c90cb26d260adcb0
+guid: 638a1868f47ada448ac37869d8cf21e8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2354842511820473249
-    second: delete_btn_0
+      213: -1764977377305423967
+    second: player_dead_0
   - first:
-      213: 300304630803915100
-    second: delete_btn_1
+      213: 6126242431995492942
+    second: player_dead_1
   - first:
-      213: 4913353132509313127
-    second: delete_btn_2
+      213: -7334708458148012899
+    second: player_dead_2
   - first:
-      213: -6025535309570090813
-    second: delete_btn_3
+      213: -3552212285846824575
+    second: player_dead_3
   - first:
-      213: -2163385386040270788
-    second: delete_btn_4
-  - first:
-      213: -2282982723792060290
-    second: delete_btn_5
-  - first:
-      213: -8029283122973896249
-    second: delete_btn_6
+      213: 2492517527176722534
+    second: player_dead_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -64,12 +58,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 24
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -131,155 +125,199 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: delete_btn_0
+      name: player_dead_0
       rect:
         serializedVersion: 2
-        x: 4
-        y: 15
-        width: 64
-        height: 68
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 0
+        y: 0
+        width: 20
+        height: 20
+      alignment: 9
+      pivot: {x: 0.525, y: 0.075}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1a34c0bb9c41ea020800000000000000
-      internalID: 2354842511820473249
+      spriteID: 1af0c153d6a8187e0800000000000000
+      internalID: -1764977377305423967
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: delete_btn_1
+      name: player_dead_1
       rect:
         serializedVersion: 2
-        x: 9
-        y: 1
-        width: 13
-        height: 13
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 20
+        y: 0
+        width: 20
+        height: 20
+      alignment: 9
+      pivot: {x: 0.525, y: 0.075}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c51e87b7875ea2400800000000000000
-      internalID: 300304630803915100
+      spriteID: e4a340f9809c40550800000000000000
+      internalID: 6126242431995492942
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: delete_btn_2
+      name: player_dead_2
       rect:
         serializedVersion: 2
-        x: 21
-        y: 3
-        width: 16
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 40
+        y: 0
+        width: 20
+        height: 20
+      alignment: 9
+      pivot: {x: 0.525, y: 0.075}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 768354754acbf2440800000000000000
-      internalID: 4913353132509313127
+      spriteID: d9cd80da481e53a90800000000000000
+      internalID: -7334708458148012899
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: delete_btn_3
+      name: player_dead_3
       rect:
         serializedVersion: 2
-        x: 21
-        y: 1
-        width: 13
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 60
+        y: 0
+        width: 20
+        height: 20
+      alignment: 9
+      pivot: {x: 0.525, y: 0.075}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3c850838f8ff06ca0800000000000000
-      internalID: -6025535309570090813
+      spriteID: 18952571fb104bec0800000000000000
+      internalID: -3552212285846824575
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: delete_btn_4
+      name: player_dead_4
       rect:
         serializedVersion: 2
-        x: 33
-        y: 1
-        width: 13
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 80
+        y: 0
+        width: 20
+        height: 20
+      alignment: 9
+      pivot: {x: 0.525, y: 0.075}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c306cc8147c1af1e0800000000000000
-      internalID: -2163385386040270788
+      spriteID: 668bdcb2c73379220800000000000000
+      internalID: 2492517527176722534
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: delete_btn_5
+      name: player_dead_5
       rect:
         serializedVersion: 2
-        x: 36
-        y: 3
-        width: 10
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 100
+        y: 0
+        width: 20
+        height: 20
+      alignment: 9
+      pivot: {x: 10.5, y: 1.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: e704508fe473150e0800000000000000
-      internalID: -2282982723792060290
+      spriteID: bfa45462fd490fa4dbce3fbf4c707ea2
+      internalID: -65946755
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: delete_btn_6
+      name: player_dead_6
       rect:
         serializedVersion: 2
-        x: 45
-        y: 1
-        width: 13
-        height: 13
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 120
+        y: 0
+        width: 20
+        height: 20
+      alignment: 9
+      pivot: {x: 0.525, y: 0.075}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 7c11a166a81429090800000000000000
-      internalID: -8029283122973896249
+      spriteID: 5ebe3f3a152583f41b1f907757791616
+      internalID: 1220983544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_dead_7
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 0
+        width: 20
+        height: 20
+      alignment: 9
+      pivot: {x: 0.525, y: 0.075}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9607d64889d3290429c504731a8ab9de
+      internalID: 1090927518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_dead_8
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 20
+        height: 20
+      alignment: 9
+      pivot: {x: 0.525, y: 0.075}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8cdcbff1df464ec4397cf08d79c507f2
+      internalID: -2083914163
       vertices: []
       indices: 
       edges: []
@@ -288,7 +326,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 62541e40bf259e44399e9238899e1ba7
     internalID: 0
     vertices: []
     indices: 
@@ -296,15 +334,19 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":9.0,"y":1.0},"gridSpriteSize":{"x":20.0,"y":20.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      delete_btn_0: 2354842511820473249
-      delete_btn_1: 300304630803915100
-      delete_btn_2: 4913353132509313127
-      delete_btn_3: -6025535309570090813
-      delete_btn_4: -2163385386040270788
-      delete_btn_5: -2282982723792060290
-      delete_btn_6: -8029283122973896249
+      player_dead_0: -1764977377305423967
+      player_dead_1: 6126242431995492942
+      player_dead_2: -7334708458148012899
+      player_dead_3: -3552212285846824575
+      player_dead_4: 2492517527176722534
+      player_dead_5: -65946755
+      player_dead_6: 1220983544
+      player_dead_7: 1090927518
+      player_dead_8: -2083914163
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

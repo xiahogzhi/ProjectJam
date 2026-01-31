@@ -1,28 +1,22 @@
 fileFormatVersion: 2
-guid: 2549ec813f198de4c90cb26d260adcb0
+guid: 7d3158dcb0a2e8441adc12c7fd4fc3b8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2354842511820473249
-    second: delete_btn_0
+      213: 8793639957104055765
+    second: idle_0
   - first:
-      213: 300304630803915100
-    second: delete_btn_1
+      213: 6084859605308855041
+    second: idle_1
   - first:
-      213: 4913353132509313127
-    second: delete_btn_2
+      213: 8603369663158992956
+    second: idle_2
   - first:
-      213: -6025535309570090813
-    second: delete_btn_3
+      213: -5906421172241655209
+    second: idle_3
   - first:
-      213: -2163385386040270788
-    second: delete_btn_4
-  - first:
-      213: -2282982723792060290
-    second: delete_btn_5
-  - first:
-      213: -8029283122973896249
-    second: delete_btn_6
+      213: 5704420531145803721
+    second: idle_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -64,12 +58,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 24
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -131,155 +125,111 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: delete_btn_0
+      name: player_idle_0
       rect:
         serializedVersion: 2
-        x: 4
-        y: 15
-        width: 64
-        height: 68
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 0
+        y: 0
+        width: 20
+        height: 20
+      alignment: 9
+      pivot: {x: 0.525, y: 0.075}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 1a34c0bb9c41ea020800000000000000
-      internalID: 2354842511820473249
+      spriteID: 1d2c6be58b64033459fedc9639e4a31e
+      internalID: 1086203255
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: delete_btn_1
+      name: player_idle_1
       rect:
         serializedVersion: 2
-        x: 9
-        y: 1
-        width: 13
-        height: 13
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 20
+        y: 0
+        width: 20
+        height: 20
+      alignment: 9
+      pivot: {x: 0.525, y: 0.075}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: c51e87b7875ea2400800000000000000
-      internalID: 300304630803915100
+      spriteID: 281dc096519808748a0573b004084c3f
+      internalID: 69875119
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: delete_btn_2
+      name: player_idle_2
       rect:
         serializedVersion: 2
-        x: 21
-        y: 3
-        width: 16
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 40
+        y: 0
+        width: 20
+        height: 20
+      alignment: 9
+      pivot: {x: 0.525, y: 0.075}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 768354754acbf2440800000000000000
-      internalID: 4913353132509313127
+      spriteID: 2f823023574ac434eac33f2686118059
+      internalID: 1779837329
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: delete_btn_3
+      name: player_idle_3
       rect:
         serializedVersion: 2
-        x: 21
-        y: 1
-        width: 13
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 60
+        y: 0
+        width: 20
+        height: 20
+      alignment: 9
+      pivot: {x: 0.525, y: 0.075}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 3c850838f8ff06ca0800000000000000
-      internalID: -6025535309570090813
+      spriteID: e8d82ae1abdf1cd478789d3ac46172da
+      internalID: 194377747
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: delete_btn_4
+      name: player_idle_4
       rect:
         serializedVersion: 2
-        x: 33
-        y: 1
-        width: 13
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 80
+        y: 0
+        width: 20
+        height: 20
+      alignment: 9
+      pivot: {x: 0.525, y: 0.075}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: c306cc8147c1af1e0800000000000000
-      internalID: -2163385386040270788
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: delete_btn_5
-      rect:
-        serializedVersion: 2
-        x: 36
-        y: 3
-        width: 10
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e704508fe473150e0800000000000000
-      internalID: -2282982723792060290
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: delete_btn_6
-      rect:
-        serializedVersion: 2
-        x: 45
-        y: 1
-        width: 13
-        height: 13
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7c11a166a81429090800000000000000
-      internalID: -8029283122973896249
+      spriteID: fe5b554ee21968744af49cf2ef066a74
+      internalID: -1268046889
       vertices: []
       indices: 
       edges: []
@@ -288,7 +238,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: bff77f9691fb08442947a4e2d0c28c65
     internalID: 0
     vertices: []
     indices: 
@@ -296,15 +246,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":5.0,"y":1.0},"gridSpriteSize":{"x":20.0,"y":20.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      delete_btn_0: 2354842511820473249
-      delete_btn_1: 300304630803915100
-      delete_btn_2: 4913353132509313127
-      delete_btn_3: -6025535309570090813
-      delete_btn_4: -2163385386040270788
-      delete_btn_5: -2282982723792060290
-      delete_btn_6: -8029283122973896249
+      player_idle_0: 1086203255
+      player_idle_1: 69875119
+      player_idle_2: 1779837329
+      player_idle_3: 194377747
+      player_idle_4: -1268046889
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
