@@ -57,6 +57,8 @@ public class PlayerController : GameScript
 
     private int _jumpCount;
 
+    private bool _isFollow=true;
+
     // 用于检测重叠的缓冲区
     private List<Collider2D> _overlapBuffer = new();
 
@@ -178,20 +180,34 @@ public class PlayerController : GameScript
                 {
                     if (input.Phase == InputActionPhase.Started)
                     {
-                        _mask.SetActive(true);
-                        // mask激活，检测Layer B（新出现的碰撞）
-                        CheckAndPushPlayerFromWall(true).Forget();
+                      SwitchFollow();
                     }
                     else if (input.Phase == InputActionPhase.Canceled)
                     {
-                        _mask.SetActive(false);
-                        // mask取消，检测Layer A（恢复的碰撞）
-                        CheckAndPushPlayerFromWall(false).Forget();
+                 
                     }
                 }
                     break;
             }
         }).AddTo(this);
+    }
+
+    void SwitchFollow()
+    {
+        _isFollow = !_isFollow;
+
+        if (_isFollow)
+        {
+            _mask.SetActive(false);
+            // mask取消，检测Layer A（恢复的碰撞）
+            CheckAndPushPlayerFromWall(false).Forget();
+        }
+        else
+        {
+            _mask.SetActive(true);
+            // mask激活，检测Layer B（新出现的碰撞）
+            CheckAndPushPlayerFromWall(true).Forget();
+        }
     }
 
     /// <summary>
