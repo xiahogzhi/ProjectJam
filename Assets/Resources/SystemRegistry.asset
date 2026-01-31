@@ -24,6 +24,28 @@ MonoBehaviour:
     interfaces: []
     dependencies:
     - Azathrix.EzUI.Core.UISystem
+    - SoundSystems.SoundSystem
+  - typeName: GamePlaySystem
+    assemblyName: Assembly-CSharp
+    displayName: GamePlaySystem
+    enabled: 1
+    isDefault: 0
+    priority: 0
+    defaultPriority: 0
+    hasCustomPriority: 0
+    interfaces: []
+    dependencies:
+    - Azathrix.EzUI.Core.UISystem
+  - typeName: SoundSystems.SoundSystem
+    assemblyName: Assembly-CSharp
+    displayName: SoundSystem
+    enabled: 1
+    isDefault: 0
+    priority: 0
+    defaultPriority: 0
+    hasCustomPriority: 0
+    interfaces: []
+    dependencies: []
   - typeName: Azathrix.EzInput.Core.EzInputSystem
     assemblyName: Azathrix.EzInput
     displayName: EzInputSystem
