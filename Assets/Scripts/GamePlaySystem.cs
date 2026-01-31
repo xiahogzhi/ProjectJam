@@ -72,7 +72,72 @@ public class GamePlaySystem : ISystem
     }
 
     private bool _loading;
+    public async void Replay()
+    {
+        if (_loading)
+            return;
+        Time.timeScale = 0;
+        _loading = true;
+        var nextId = _currentLevel.Id;
+        var config = _azcelSystem.GetConfig<LevelConfig>(nextId);
+        if (config == null)
+        {
+            Log.Error("不存在关卡:" + nextId);
+            Time.timeScale = 1;
+            _loading = true;
+            return;
+        }
 
+        _currentLevel = config;
+        ES3.Save(SaveKeys.LevelId, nextId);
+        
+        
+        Log.Info(LoadingPanel.Instance);
+        Log.Info(_currentLevel);
+        await LoadingPanel.Instance.ShowAsync();
+        await _uiSystem.ShowAsync<GamePanel>();
+        await SceneManager.LoadSceneAsync("Empty").ToUniTask();
+        await SceneManager.LoadSceneAsync(_currentLevel.SceneName).ToUniTask();
+        await UniTask.WaitForSeconds(0.2f, true);
+        await LoadingPanel.Instance.HideAsync();
+
+        Time.timeScale = 1;
+        _loading = false;
+    }
+    
+    public async void GotoLevel(int nextLevel)
+    {
+        if (_loading)
+            return;
+        Time.timeScale = 0;
+        _loading = true;
+        var nextId =nextLevel;
+        var config = _azcelSystem.GetConfig<LevelConfig>(nextId);
+        if (config == null)
+        {
+            Log.Error("不存在关卡:" + nextId);
+            Time.timeScale = 1;
+            _loading = true;
+            return;
+        }
+
+        _currentLevel = config;
+        ES3.Save(SaveKeys.LevelId, nextId);
+        
+        
+        Log.Info(LoadingPanel.Instance);
+        Log.Info(_currentLevel);
+        await LoadingPanel.Instance.ShowAsync();
+        await _uiSystem.ShowAsync<GamePanel>();
+        await SceneManager.LoadSceneAsync("Empty").ToUniTask();
+        await SceneManager.LoadSceneAsync(_currentLevel.SceneName).ToUniTask();
+        await UniTask.WaitForSeconds(0.2f, true);
+        await LoadingPanel.Instance.HideAsync();
+
+        Time.timeScale = 1;
+        _loading = false;
+    }
+    
     public async void NextLevel()
     {
         if (_loading)
