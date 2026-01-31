@@ -15,6 +15,7 @@ TagManager:
   - Wall
   - WallChecker
   - EndPoint
+  - Bubble
   layers:
   - Default
   - TransparentFX
@@ -54,6 +55,9 @@ TagManager:
     locked: 0
   - name: Ground
     uniqueID: 3859047031
+    locked: 0
+  - name: Bubble
+    uniqueID: 1450149327
     locked: 0
   - name: Mask
     uniqueID: 3698199299

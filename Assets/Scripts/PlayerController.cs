@@ -86,6 +86,11 @@ public class PlayerController : GameScript
         {
             AzathrixFramework.GetSystem<GamePlaySystem>().NextLevel();
         }
+        else if (other.CompareTag("Bubble"))
+        {
+            _rigidbody2D.linearVelocityY = 0;
+            _rigidbody2D.AddForceY(_jumpForce, ForceMode2D.Impulse);
+        }
     }
 
     async void Dead()
