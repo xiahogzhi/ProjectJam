@@ -117,8 +117,8 @@ MonoBehaviour:
   _leftWallChecker: {fileID: 7420894581555604344}
   _rightWallChecker: {fileID: 1117345626508472975}
   _hurtChecker: {fileID: 5117928444754788721}
-  _minPushForce: 5
-  _maxPushForce: 5
+  _minPushForce: 8
+  _maxPushForce: 15
   _penetrationThreshold: 0.1
   _maxPenetrationDepth: 1
   _layerACheckLayer:
