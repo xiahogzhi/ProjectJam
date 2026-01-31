@@ -57,6 +57,7 @@ MonoBehaviour:
   _useMask: 1
   _animation: {fileID: 0}
   _startButton: {fileID: 5589042090250561143}
+  _clearButton: {fileID: 0}
 --- !u!1 &1012357156661307959
 GameObject:
   m_ObjectHideFlags: 0

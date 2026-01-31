@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Azathrix.EzInput.Core;
 using Azathrix.EzInput.Events;
 using Azathrix.Framework.Core;
 using Azathrix.Framework.Tools;
@@ -9,6 +10,7 @@ using Azathrix.GameKit.Runtime.Extensions;
 using Cysharp.Threading.Tasks;
 using Framework.Games;
 using Sirenix.OdinInspector;
+using UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -39,6 +41,10 @@ public class PlayerController : GameScript
     [LabelText("Layer B 碰撞层")] [Tooltip("mask激活时检测的碰撞层（切换后层级）")] [SerializeField]
     private LayerMask _layerBCheckLayer;
 
+    private Animator _animator;
+
+    private SpriteRenderer _renderer;
+
     private CollisionMask _mask;
     private Rigidbody2D _rigidbody2D;
     private Collider2D _playerCollider;
@@ -60,6 +66,15 @@ public class PlayerController : GameScript
 
     private bool _isFollow = true;
 
+    private bool _isDead;
+
+    public bool isDead => _isDead;
+
+    public struct OnPlayerDead
+    {
+    }
+
+
     // 用于检测重叠的缓冲区
     private List<Collider2D> _overlapBuffer = new();
 
@@ -71,8 +86,34 @@ public class PlayerController : GameScript
         }
     }
 
+    async void Dead()
+    {
+        if (_isDead) return;
+        Move(false);
+        _isDead = true;
+
+        var child = GetComponentsInChildren<BoxCollider2D>(true);
+
+        foreach (var variable in child)
+        {
+            variable.enabled = false;
+        }
+
+        Time.timeScale = 0;
+        _rigidbody2D.FreezeAll();
+
+        AzathrixFramework.Dispatcher.Dispatch<OnPlayerDead>();
+
+        await _animator.PlayAsync("dead");
+
+        AzathrixFramework.GetSystem<GamePlaySystem>().Replay();
+    }
+
+
     void Move(bool flag)
     {
+        if (_isDead)
+            return;
         _moveState = flag;
         if (!flag)
             _clearXVelocityFlag = true;
@@ -95,6 +136,8 @@ public class PlayerController : GameScript
         base.OnScriptInitialize();
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _playerCollider = GetComponent<Collider2D>();
+        _animator = GetComponent<Animator>();
+        _renderer = GetComponent<SpriteRenderer>();
 
         _gameCamera = SystemEnvironment.instance.systemConfig.gameCamera;
 
@@ -104,7 +147,8 @@ public class PlayerController : GameScript
         //
         // };
 
-        _hurtChecker.OnHurtEvent += () => { AzathrixFramework.GetSystem<GamePlaySystem>().Replay(); };
+        _hurtChecker.OnHurtEvent += () => { Dead(); };
+
 
         _groundChecker.OnGroundStateChangedEvent += b =>
         {
@@ -142,6 +186,8 @@ public class PlayerController : GameScript
             var input = evt.Data;
             if (input.MapName != "Game")
                 return;
+
+            if (_isDead) return;
 
             switch (input.ActionName)
             {
@@ -273,7 +319,7 @@ public class PlayerController : GameScript
 
     private void Update()
     {
-        if (!_mask.IsActive)
+        if (!_mask.IsActive && !isDead)
         {
             // 跟随鼠标
             Vector3 mousePos = _gameCamera.ScreenToWorldPoint(_mousePos);
@@ -297,6 +343,9 @@ public class PlayerController : GameScript
     private void FixedUpdate()
     {
         OnMoveUpdate();
+        if (!_isDead)
+            _renderer.flipX = _opDir.x < 0;
+
         if (_clearXVelocityFlag)
         {
             _clearXVelocityFlag = false;
