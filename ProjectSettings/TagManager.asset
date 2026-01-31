@@ -9,6 +9,10 @@ TagManager:
   - UICamera
   - EventSystem
   - GroundChecker
+  - Ground
+  - HurtChecker
+  - HurtBox
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -17,10 +21,10 @@ TagManager:
   - Water
   - UI
   - Player
-  - Wall
-  - Ground
-  - GroundChecker
   - 
+  - Obstruct
+  - Checker
+  - HurtBox
   - 
   - 
   - 

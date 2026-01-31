@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using JetBrains.Annotations;
 using SingularityGroup.HotReload.DTO;
 using SingularityGroup.HotReload.Editor.Cli;
-using SingularityGroup.HotReload.Editor.Demo;
 using SingularityGroup.HotReload.EditorDependencies;
 using UnityEditor;
 using UnityEngine;
@@ -116,7 +115,7 @@ namespace SingularityGroup.HotReload.Editor {
             
             serverDownloader = new ServerDownloader();
             serverDownloader.CheckIfDownloaded(HotReloadCli.controller);
-            SingularityGroup.HotReload.Demo.Demo.I = new EditorDemo();
+            // SingularityGroup.HotReload.Demo.Demo.I = new EditorDemo();
             if (HotReloadPrefs.DeactivateHotReload || new DirectoryInfo(Path.GetFullPath("..")).Name == "VP") {
                 ResetSettings();
                 return;

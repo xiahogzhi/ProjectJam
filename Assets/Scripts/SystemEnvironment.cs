@@ -24,7 +24,7 @@ namespace Framework.Games
             get
             {
                 if (_instance == null)
-                    _instance = FindObjectOfType<SystemEnvironment>();
+                    _instance = FindAnyObjectByType<SystemEnvironment>();
 
                 return _instance;
             }
@@ -36,15 +36,10 @@ namespace Framework.Games
         {
             [LabelText("UI摄像机")] [SerializeField] private Camera _uiCamera;
             [LabelText("游戏摄像机")] [SerializeField] private Camera _gameCamera;
-            [LabelText("反射摄像机")] [SerializeField] private Camera _reflectionCamera;
             [LabelText("UIRoot")] [SerializeField] private Transform _uiRoot;
-
-            [LabelText("Tips世界节点")] [SerializeField]
-            private Transform _worldTipsParent;
 
             [SerializeField] private Canvas _canvas;
             [LabelText("主摄像机")] [SerializeField] private CinemachineCamera _mainCamera;
-            [LabelText("输入")] [SerializeField] private PlayerInput _input;
 
             #region 属性
 
@@ -52,17 +47,12 @@ namespace Framework.Games
 
             public Camera gameCamera => _gameCamera;
 
-            public Camera reflectionCamera => _reflectionCamera;
-
             public Transform uiRoot => _uiRoot;
-
-            public Transform worldTipsParent => _worldTipsParent;
 
             public Canvas canvas => _canvas;
 
             public CinemachineCamera mainCamera => _mainCamera;
 
-            public PlayerInput input => _input;
 
             #endregion
         }
