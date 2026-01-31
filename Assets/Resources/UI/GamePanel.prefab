@@ -298,6 +298,7 @@ MonoBehaviour:
   _useMask: 1
   _animation: {fileID: 0}
   _exitButton: {fileID: 5797628053308651038}
+  _replayButton: {fileID: 8114647774714994943}
 --- !u!1 &2596247924808776336
 GameObject:
   m_ObjectHideFlags: 0
