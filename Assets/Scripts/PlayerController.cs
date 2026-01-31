@@ -19,6 +19,7 @@ public class PlayerController : GameScript
     [SerializeField] private GroundChecker _groundChecker;
     [SerializeField] private WallChecker _leftWallChecker;
     [SerializeField] private WallChecker _rightWallChecker;
+    [SerializeField] private HurtChecker _hurtChecker;
 
     [Title("卡墙推力配置")] [LabelText("最小推力")] [Tooltip("穿透刚超过阈值时的推力")] [SerializeField]
     private float _minPushForce = 2f;
@@ -57,7 +58,7 @@ public class PlayerController : GameScript
 
     private int _jumpCount;
 
-    private bool _isFollow=true;
+    private bool _isFollow = true;
 
     // 用于检测重叠的缓冲区
     private List<Collider2D> _overlapBuffer = new();
@@ -102,6 +103,8 @@ public class PlayerController : GameScript
         //     AzathrixFramework.GetSystem<GamePlaySystem>().NextLevel();
         //
         // };
+
+        _hurtChecker.OnHurtEvent += () => { AzathrixFramework.GetSystem<GamePlaySystem>().Replay(); };
 
         _groundChecker.OnGroundStateChangedEvent += b =>
         {
@@ -180,11 +183,10 @@ public class PlayerController : GameScript
                 {
                     if (input.Phase == InputActionPhase.Started)
                     {
-                      SwitchFollow();
+                        SwitchFollow();
                     }
                     else if (input.Phase == InputActionPhase.Canceled)
                     {
-                 
                     }
                 }
                     break;

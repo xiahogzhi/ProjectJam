@@ -12,6 +12,7 @@ namespace UI
     public class GamePanel : Panel, IMainUI, IMainUILoadable
     {
         [SerializeField] private Button _exitButton;
+        [SerializeField] private Button _replayButton;
         [Inject] private GamePlaySystem _playSystem;
 
         public override bool useMask { get; } = false;
@@ -19,8 +20,8 @@ namespace UI
         protected override void OnScriptInitialize()
         {
             base.OnScriptInitialize();
-            _exitButton?.onClick.AddListener(() => {_playSystem.ExitGame(); }
-            );
+            _exitButton?.onClick.AddListener(() => { _playSystem.ExitGame(); });
+            _replayButton?.onClick.AddListener(() => { _playSystem.Replay(); });
         }
 
         public async UniTask OnLoading(ILoadingController controller)
