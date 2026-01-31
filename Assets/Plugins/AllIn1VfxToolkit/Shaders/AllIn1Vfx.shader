@@ -284,6 +284,11 @@
             #pragma shader_feature_local LIGHTANDSHADOW_ON
             #pragma shader_feature_local SHAPETEXOFFSET_ON
             #pragma shader_feature_local SHAPEWEIGHTS_ON
+
+            // Custom Mask Layer
+            #pragma shader_feature_local CUSTOMMASKLAYER_ON
+            #pragma shader_feature_local CUSTOMMASKLAYER_A
+            #pragma shader_feature_local CUSTOMMASKLAYER_B
             
             #pragma shader_feature_local ALPHACUTOFF_ON
             #pragma shader_feature_local ALPHASMOOTHSTEP_ON
@@ -349,7 +354,7 @@
 				half2 uvDistTex : TEXCOORD5;
 				#endif
 
-            	#if CAMDISTFADE_ON
+            	#if CAMDISTFADE_ON || CUSTOMMASKLAYER_ON
 				half4 worldPos : TEXCOORD6;
 				#endif
 
@@ -577,6 +582,18 @@
             #if SHAPETEXOFFSET_ON
             half _RandomSh1Mult, _RandomSh2Mult, _RandomSh3Mult;
             #endif
+
+            // Custom Mask Layer 全局参数
+            #if CUSTOMMASKLAYER_ON
+            float _GlobalMaskEnabled;
+            float _GlobalMaskShowLayerA;
+            float _GlobalMaskShowLayerB;
+            float2 _GlobalMaskCenter;
+            float2 _GlobalMaskSize;
+            float _GlobalMaskActive;
+            float _GlobalMaskPreviewAlpha;
+            float _GlobalMaskActiveAlpha;
+            #endif
             
             UNITY_INSTANCING_BUFFER_START(Seeds)
             UNITY_DEFINE_INSTANCED_PROP(half, _TimingSeed)
@@ -605,7 +622,7 @@
             	
                 o.vertex = UnityObjectToClipPos(v.vertex);
 
-            	#if CAMDISTFADE_ON
+            	#if CAMDISTFADE_ON || CUSTOMMASKLAYER_ON
 				o.worldPos = mul(unity_ObjectToWorld, v.vertex);
 				#endif
 				
@@ -1119,7 +1136,61 @@
                 #if ADDITIVECONFIG_ON
                 col.rgb *= col.a;
                 #endif
-            	
+
+                // Custom Mask Layer 处理
+                #if CUSTOMMASKLAYER_ON
+                // 检查是否在 mask 范围内
+                float2 maskHalfSize = _GlobalMaskSize * 0.5;
+                float2 maskMinBound = _GlobalMaskCenter - maskHalfSize;
+                float2 maskMaxBound = _GlobalMaskCenter + maskHalfSize;
+                bool insideMask = i.worldPos.x >= maskMinBound.x && i.worldPos.x <= maskMaxBound.x &&
+                                  i.worldPos.y >= maskMinBound.y && i.worldPos.y <= maskMaxBound.y;
+
+                // 编辑器模式（效果禁用时）
+                if (_GlobalMaskEnabled < 0.5)
+                {
+                    #if CUSTOMMASKLAYER_A
+                        if (_GlobalMaskShowLayerA < 0.5)
+                        {
+                            col.rgb = 0;
+                            col.a = 0;
+                        }
+                    #elif CUSTOMMASKLAYER_B
+                        if (_GlobalMaskShowLayerB < 0.5)
+                        {
+                            col.rgb = 0;
+                            col.a = 0;
+                        }
+                    #endif
+                }
+                else
+                {
+                    // 运行时 mask 效果
+                    #if CUSTOMMASKLAYER_A
+                        // A 层：mask 内隐藏
+                        if (insideMask)
+                        {
+                            col.rgb = 0;
+                            col.a = 0;
+                        }
+                    #elif CUSTOMMASKLAYER_B
+                        // B 层：mask 内根据激活状态显示
+                        if (insideMask)
+                        {
+                            float targetAlpha = lerp(_GlobalMaskPreviewAlpha, _GlobalMaskActiveAlpha, _GlobalMaskActive);
+                            col.rgb *= targetAlpha;
+                            col.a *= targetAlpha;
+                        }
+                        else
+                        {
+                            // mask 外隐藏
+                            col.rgb = 0;
+                            col.a = 0;
+                        }
+                    #endif
+                }
+                #endif
+
                 return col;
             }
             ENDCG

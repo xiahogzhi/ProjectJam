@@ -155,6 +155,7 @@ namespace AllIn1VfxToolkit
                 CameraDistFade("Camera Distance Fade", "CAMDISTFADE_ON", 129, 131);
                 AlphaSmoothstep("Alpha Remap", "ALPHASMOOTHSTEP_ON", 53, 54);
                 GenericEffect("Alpha Cutoff", "ALPHACUTOFF_ON", 52, 52, true, new string[] { "Use this to clip transparent pixels and reduce overdraw" });
+                CustomMaskLayer("Custom Mask Layer", "CUSTOMMASKLAYER_ON");
             }
 
             SectionSeparatorAndHeader("UV and Vertex Effects");
@@ -991,6 +992,57 @@ namespace AllIn1VfxToolkit
                     GUILayout.Label("You'll need AllIn1VfxFakeLightDirSetter.cs in the scene (see docs)", smallLabel);
                     for(int i = first; i <= first + 2; i++) DrawProperty(i);
                     DrawMinMaxSlider("Min And Max Slider", last - 1, last);
+                }
+                EditorGUILayout.EndVertical();
+            }
+
+            EditorGUILayout.EndToggleGroup();
+        }
+
+        private void CustomMaskLayer(string inspector, string keyword)
+        {
+            if(SpecialCaseEffectBodyToggle(inspector, keyword))
+            {
+                EditorGUILayout.BeginVertical(propertiesStyle);
+                {
+                    GUILayout.Label("Select which mask layer this material belongs to:", smallLabel);
+                    EditorGUILayout.Space();
+
+                    bool isLayerA = oldKeyWords.Contains("CUSTOMMASKLAYER_A");
+                    bool isLayerB = oldKeyWords.Contains("CUSTOMMASKLAYER_B");
+
+                    // Default to Layer A if neither is set
+                    if(!isLayerA && !isLayerB)
+                    {
+                        isLayerA = true;
+                        targetMat.EnableKeyword("CUSTOMMASKLAYER_A");
+                        Save();
+                    }
+
+                    EditorGUILayout.BeginHorizontal();
+                    {
+                        bool newLayerA = GUILayout.Toggle(isLayerA, "Layer A", toggleButtonStyle);
+                        bool newLayerB = GUILayout.Toggle(isLayerB, "Layer B", toggleButtonStyle);
+
+                        // Handle mutual exclusion
+                        if(newLayerA != isLayerA && newLayerA)
+                        {
+                            targetMat.EnableKeyword("CUSTOMMASKLAYER_A");
+                            targetMat.DisableKeyword("CUSTOMMASKLAYER_B");
+                            Save();
+                        }
+                        else if(newLayerB != isLayerB && newLayerB)
+                        {
+                            targetMat.EnableKeyword("CUSTOMMASKLAYER_B");
+                            targetMat.DisableKeyword("CUSTOMMASKLAYER_A");
+                            Save();
+                        }
+                    }
+                    EditorGUILayout.EndHorizontal();
+
+                    EditorGUILayout.Space();
+                    GUILayout.Label("*Layer A: Hidden inside mask area (preview: visible)", smallLabel);
+                    GUILayout.Label("*Layer B: Visible inside mask area (preview: semi-transparent)", smallLabel);
                 }
                 EditorGUILayout.EndVertical();
             }

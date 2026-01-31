@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8897939994603782995}
   - component: {fileID: 1468116430687989734}
   - component: {fileID: 2847924507219116254}
+  - component: {fileID: -4829819327211769444}
   m_Layer: 8
   m_Name: Groun_B
   m_TagString: Ground
@@ -152,3 +153,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SliceableCollider
   _originalCollider: {fileID: 1468116430687989734}
+--- !u!114 &-4829819327211769444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8925856563892505479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb1fe0ff09dcaf24b90350226865740d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MaskLayerSetter
+  _currentLayer: 1
+  _setParticleKeyword: 1
+  _includeChildren: 1

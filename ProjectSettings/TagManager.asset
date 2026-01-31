@@ -14,6 +14,7 @@ TagManager:
   - HurtBox
   - Wall
   - WallChecker
+  - EndPoint
   layers:
   - Default
   - TransparentFX
@@ -50,6 +51,12 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Mask
+    uniqueID: 3698199299
+    locked: 0
+  - name: Player
+    uniqueID: 2771915345
     locked: 0
   m_RenderingLayers:
   - Default

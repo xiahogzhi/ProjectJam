@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using Azathrix.EzInput.Events;
 using Azathrix.Framework.Core;
 using Azathrix.Framework.Tools;
 using Azathrix.GameKit.Runtime.Behaviours;
 using Azathrix.GameKit.Runtime.Builder.PrefabBuilders;
 using Azathrix.GameKit.Runtime.Extensions;
+using Cysharp.Threading.Tasks;
 using Framework.Games;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -17,8 +19,28 @@ public class PlayerController : GameScript
     [SerializeField] private GroundChecker _groundChecker;
     [SerializeField] private WallChecker _leftWallChecker;
     [SerializeField] private WallChecker _rightWallChecker;
+
+    [Title("卡墙推力配置")] [LabelText("最小推力")] [Tooltip("穿透刚超过阈值时的推力")] [SerializeField]
+    private float _minPushForce = 2f;
+
+    [LabelText("最大推力")] [Tooltip("穿透达到最大深度时的推力")] [SerializeField]
+    private float _maxPushForce = 8f;
+
+    [LabelText("穿透阈值")] [Tooltip("只有穿透深度超过此值才施加推力")] [SerializeField]
+    private float _penetrationThreshold = 0.1f;
+
+    [LabelText("最大穿透深度")] [Tooltip("用于插值计算的最大穿透深度")] [SerializeField]
+    private float _maxPenetrationDepth = 1f;
+
+    [LabelText("Layer A 碰撞层")] [Tooltip("mask取消时检测的碰撞层（原始层级）")] [SerializeField]
+    private LayerMask _layerACheckLayer;
+
+    [LabelText("Layer B 碰撞层")] [Tooltip("mask激活时检测的碰撞层（切换后层级）")] [SerializeField]
+    private LayerMask _layerBCheckLayer;
+
     private CollisionMask _mask;
     private Rigidbody2D _rigidbody2D;
+    private Collider2D _playerCollider;
 
     private bool _moveState;
 
@@ -33,6 +55,18 @@ public class PlayerController : GameScript
 
     private Camera _gameCamera;
 
+    private int _jumpCount;
+
+    // 用于检测重叠的缓冲区
+    private List<Collider2D> _overlapBuffer = new();
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("EndPoint"))
+        {
+            AzathrixFramework.GetSystem<GamePlaySystem>().NextLevel();
+        }
+    }
 
     void Move(bool flag)
     {
@@ -41,23 +75,37 @@ public class PlayerController : GameScript
             _clearXVelocityFlag = true;
     }
 
-    void Jump()
+    void Jump(float velocity = 0)
     {
-        if (!_onGroundState)
+        if (_jumpCount <= 0)
             return;
-        _rigidbody2D.AddForceY(_jumpForce, ForceMode2D.Impulse);
+        _jumpCount--;
+        if (velocity == 0)
+            velocity = _jumpForce;
+        // 先清空Y轴速度，避免与其他力叠加
+        _rigidbody2D.linearVelocityY = 0;
+        _rigidbody2D.AddForceY(velocity, ForceMode2D.Impulse);
     }
 
     protected override void OnScriptInitialize()
     {
         base.OnScriptInitialize();
         _rigidbody2D = GetComponent<Rigidbody2D>();
+        _playerCollider = GetComponent<Collider2D>();
 
         _gameCamera = SystemEnvironment.instance.systemConfig.gameCamera;
+
+        // _endPointChecker.OnEnterEndPointEvent += () =>
+        // {
+        //     AzathrixFramework.GetSystem<GamePlaySystem>().NextLevel();
+        //
+        // };
 
         _groundChecker.OnGroundStateChangedEvent += b =>
         {
             _onGroundState = b;
+            if (_jumpCount <= 0 && b)
+                _jumpCount = 1;
             Log.Info("地面状态改变:" + _onGroundState);
         };
         _leftWallChecker.OnWallStateChangedEvent += b =>
@@ -75,7 +123,8 @@ public class PlayerController : GameScript
 
         // AzathrixFramework.GetSystem<GamePlaySystem>().FocusCamera(transform);
 
-        _mask = PrefabBuilder.Get().SetPrefab("Prefabs/Mask".LoadPrefab()).SetScale(Vector3.one*3).Build().GetComponent<CollisionMask>();
+        _mask = PrefabBuilder.Get().SetPrefab("Prefabs/Mask".LoadPrefab()).SetScale(Vector3.one * 3).Build()
+            .GetComponent<CollisionMask>();
     }
 
 
@@ -120,7 +169,7 @@ public class PlayerController : GameScript
                     if (input.Phase == InputActionPhase.Performed)
                     {
                         _mousePos = input.ReadValue<Vector2>();
-                     
+
                         // Log.Info("鼠标位置更新：" + mousePos);
                     }
                 }
@@ -130,10 +179,14 @@ public class PlayerController : GameScript
                     if (input.Phase == InputActionPhase.Started)
                     {
                         _mask.SetActive(true);
+                        // mask激活，检测Layer B（新出现的碰撞）
+                        CheckAndPushPlayerFromWall(true).Forget();
                     }
                     else if (input.Phase == InputActionPhase.Canceled)
                     {
                         _mask.SetActive(false);
+                        // mask取消，检测Layer A（恢复的碰撞）
+                        CheckAndPushPlayerFromWall(false).Forget();
                     }
                 }
                     break;
@@ -141,11 +194,70 @@ public class PlayerController : GameScript
         }).AddTo(this);
     }
 
+    /// <summary>
+    /// 检测玩家是否卡在墙里，如果是则根据速度反向施加推力
+    /// </summary>
+    /// <param name="isMaskActive">mask是否激活，true检测LayerB，false检测LayerA</param>
+    async UniTaskVoid CheckAndPushPlayerFromWall(bool isMaskActive)
+    {
+        if (_playerCollider == null || _rigidbody2D == null)
+            return;
+
+        // 等待物理更新
+        await UniTask.WaitForFixedUpdate();
+
+        // 根据mask状态选择检测的层级
+        LayerMask checkLayer = isMaskActive ? _layerBCheckLayer : _layerACheckLayer;
+
+        // 检测玩家是否与墙体重叠
+        _overlapBuffer.Clear();
+        var filter = new ContactFilter2D
+        {
+            layerMask = checkLayer,
+            useLayerMask = true,
+            useTriggers = false
+        };
+
+        int count = _playerCollider.Overlap(filter, _overlapBuffer);
+
+        if (count > 0)
+        {
+            // 检查最大穿透深度
+            float maxPenetration = 0f;
+            foreach (var otherCollider in _overlapBuffer)
+            {
+                var distance = _playerCollider.Distance(otherCollider);
+                if (distance.isOverlapped)
+                {
+                    // distance.distance 为负值表示穿透深度
+                    float penetration = -distance.distance;
+                    if (penetration > maxPenetration)
+                    {
+                        maxPenetration = penetration;
+                    }
+                }
+            }
+
+            // 只有穿透深度超过阈值才施加推力
+            if (maxPenetration > _penetrationThreshold)
+            {
+                // 根据穿透深度插值计算推力
+                float t = Mathf.InverseLerp(_penetrationThreshold, _maxPenetrationDepth, maxPenetration);
+                float pushForce = Mathf.Lerp(_minPushForce, _maxPushForce, t);
+
+                // 玩家卡在墙里，先重置Y轴速度，然后向上施加推力
+                _rigidbody2D.linearVelocityY = 0;
+                _rigidbody2D.AddForce(new Vector2(0, pushForce), ForceMode2D.Impulse);
+                Log.Info($"玩家卡墙，穿透深度: {maxPenetration}，施加Y轴推力: {pushForce}");
+            }
+        }
+    }
+
     private void Update()
     {
         if (!_mask.IsActive)
         {
-            // 跟随鼠标                                                                                                                                                                                            
+            // 跟随鼠标
             Vector3 mousePos = _gameCamera.ScreenToWorldPoint(_mousePos);
             _mask.SetPosition(mousePos);
         }

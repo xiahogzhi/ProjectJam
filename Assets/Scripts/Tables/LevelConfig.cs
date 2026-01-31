@@ -13,11 +13,13 @@ namespace Game.Tables
         public override string ConfigName => "LevelConfig";
 
         public string SceneName { get; private set; }
+        public int NextLevel { get; private set; }
 
         public override void Deserialize(BinaryReader reader)
         {
             Id = reader.ReadInt32();
             SceneName = reader.ReadString();
+            NextLevel = reader.ReadInt32();
         }
 
         protected override bool TryGetValueInternal<T>(string fieldName, out T value)
@@ -34,6 +36,10 @@ namespace Game.Tables
             {
                 return TryConvertValue(SceneName, out value);
             }
+            if (string.Equals(fieldName, "NextLevel", StringComparison.OrdinalIgnoreCase))
+            {
+                return TryConvertValue(NextLevel, out value);
+            }
 
             return false;
         }
@@ -41,8 +47,8 @@ namespace Game.Tables
 
     public sealed class LevelConfigTable : ConfigTable<LevelConfig, int>, IConfigSchemaProvider
     {
-        public int SchemaHash => 800055927;
-        public int SchemaFieldCount => 2;
+        public int SchemaHash => -1513007383;
+        public int SchemaFieldCount => 3;
 
     }
 }
