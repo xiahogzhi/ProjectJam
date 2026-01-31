@@ -25,6 +25,7 @@ MonoBehaviour:
     dependencies:
     - Azathrix.EzUI.Core.UISystem
     - SoundSystems.SoundSystem
+    - Azathrix.EzInput.Core.EzInputSystem
   - typeName: GamePlaySystem
     assemblyName: Assembly-CSharp
     displayName: GamePlaySystem
@@ -36,6 +37,7 @@ MonoBehaviour:
     interfaces: []
     dependencies:
     - Azathrix.EzUI.Core.UISystem
+    - Azcel.AzcelSystem
   - typeName: SoundSystems.SoundSystem
     assemblyName: Assembly-CSharp
     displayName: SoundSystem

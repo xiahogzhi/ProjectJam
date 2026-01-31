@@ -5,17 +5,14 @@ using UnityEngine.UI;
 
 namespace UI
 {
-    public class GamePanel : FocusUI, IMainUI
+    public class GamePanel : Panel, IMainUI
     {
         [SerializeField] private Button _exitButton;
 
         protected override void OnScriptInitialize()
         {
             base.OnScriptInitialize();
-            _exitButton?.onClick.AddListener(() =>
-                {
-                    UISystem.Show<StartPanel>();
-                }
+            _exitButton?.onClick.AddListener(() => { UISystem.Show<StartPanel>(); }
             );
         }
     }
