@@ -13,6 +13,7 @@ TagManager:
   - HurtChecker
   - HurtBox
   - Wall
+  - WallChecker
   layers:
   - Default
   - TransparentFX
@@ -21,11 +22,11 @@ TagManager:
   - Water
   - UI
   - Player
+  - LayerA
+  - LayerB
+  - Checker
   - 
   - Obstruct
-  - Checker
-  - HurtBox
-  - 
   - 
   - 
   - 

@@ -124,6 +124,16 @@ MonoBehaviour:
       hasCustomOrder: 0
       enabled: 1
       isAuto: 1
+    - typeName: ChangeSceneHook
+      assemblyName: Assembly-CSharp
+      displayName: ChangeSceneHook
+      phaseId: ChangeSceneHook
+      interfaceTypeName: Azathrix.Framework.Core.Launcher.ILauncherPhase
+      order: -100
+      defaultOrder: -100
+      hasCustomOrder: 0
+      enabled: 1
+      isAuto: 1
     hooks: []
   - pipelineId: Azcel.Converter
     displayName: "Azcel\u914D\u7F6E\u8F6C\u6362(Azcel.Converter)"

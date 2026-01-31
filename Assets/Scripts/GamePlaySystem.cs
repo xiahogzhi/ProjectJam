@@ -3,8 +3,10 @@ using Azathrix.Framework.Core.Attributes;
 using Azathrix.Framework.Interfaces;
 using Azathrix.Framework.Tools;
 using Azcel;
+using Framework.Games;
 using Game.Tables;
 using UI;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [RequireSystem(typeof(UISystem))]
@@ -26,5 +28,10 @@ public class GamePlaySystem : ISystem
 
         SceneManager.LoadScene(config.SceneName);
         _uiSystem.Show<GamePanel>();
+    }
+
+    public void FocusCamera(Transform target)
+    {
+        SystemEnvironment.instance.systemConfig.mainCamera.Follow = target;
     }
 }

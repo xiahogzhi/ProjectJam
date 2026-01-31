@@ -9,6 +9,7 @@ namespace UI
     {
         [SerializeField] private Button _exitButton;
 
+        public override bool useMask { get; } = false;
         protected override void OnScriptInitialize()
         {
             base.OnScriptInitialize();
