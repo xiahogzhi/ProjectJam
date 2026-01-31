@@ -196,6 +196,11 @@ public class PlayerController : GameScript
 
         _hurtChecker.OnHurtEvent += () => { Dead(); };
 
+        _groundChecker.OnPlatformEnterEvent += transform1 =>
+        {
+            transform.SetParent(transform1);
+        };
+
 
         _groundChecker.OnGroundStateChangedEvent += b =>
         {

@@ -16,6 +16,7 @@ TagManager:
   - WallChecker
   - EndPoint
   - Bubble
+  - Platform
   layers:
   - Default
   - TransparentFX
