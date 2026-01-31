@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: f1354002827848b4ca162b822d6eb92c
+guid: 3d5489a0c31746042b351cfe81ce2b92
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -838303452125981373
-    second: night_bg_0
+      213: 9087207327684497215
+    second: door_open_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,30 +109,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: night_bg_0
+      name: door_open_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 640
-        height: 360
+        width: 32
+        height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3451c0aa37fbd54f0800000000000000
-      internalID: -838303452125981373
+      spriteID: f3f06fe1bee3c1e70800000000000000
+      internalID: 9087207327684497215
       vertices: []
       indices: 
       edges: []
@@ -161,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      night_bg_0: -838303452125981373
+      door_open_0: 9087207327684497215
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

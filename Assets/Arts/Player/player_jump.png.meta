@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: f1354002827848b4ca162b822d6eb92c
+guid: f71e715f1bf9df444858bb5d6a1fc24c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -838303452125981373
-    second: night_bg_0
+      213: 4330694004763997605
+    second: player_jump_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -109,40 +109,27 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: night_bg_0
+      name: player_jump_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 640
-        height: 360
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 20
+        height: 20
+      alignment: 9
+      pivot: {x: 0.525, y: 0.075}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3451c0aa37fbd54f0800000000000000
-      internalID: -838303452125981373
+      spriteID: 5a53fd89047b91c30800000000000000
+      internalID: 4330694004763997605
       vertices: []
       indices: 
       edges: []
@@ -151,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 615e63460970add40b89d4259582c8e8
     internalID: 0
     vertices: []
     indices: 
@@ -159,9 +146,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":20.0,"y":20.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      night_bg_0: -838303452125981373
+      player_jump_0: 4330694004763997605
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

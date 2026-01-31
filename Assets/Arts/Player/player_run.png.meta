@@ -1,28 +1,16 @@
 fileFormatVersion: 2
-guid: 2549ec813f198de4c90cb26d260adcb0
+guid: 7bc6639949219394ba8435cd2fbaf80c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2354842511820473249
-    second: delete_btn_0
+      213: -9128595044046351649
+    second: player_run-Sheet_0
   - first:
-      213: 300304630803915100
-    second: delete_btn_1
+      213: 5378742705421272937
+    second: player_run-Sheet_1
   - first:
-      213: 4913353132509313127
-    second: delete_btn_2
-  - first:
-      213: -6025535309570090813
-    second: delete_btn_3
-  - first:
-      213: -2163385386040270788
-    second: delete_btn_4
-  - first:
-      213: -2282982723792060290
-    second: delete_btn_5
-  - first:
-      213: -8029283122973896249
-    second: delete_btn_6
+      213: -8737118864894609830
+    second: player_run-Sheet_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -64,12 +52,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 24
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -131,57 +119,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: delete_btn_0
+      name: player_run-Sheet_0
       rect:
         serializedVersion: 2
-        x: 4
-        y: 15
-        width: 64
-        height: 68
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1a34c0bb9c41ea020800000000000000
-      internalID: 2354842511820473249
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: delete_btn_1
-      rect:
-        serializedVersion: 2
-        x: 9
-        y: 1
-        width: 13
-        height: 13
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c51e87b7875ea2400800000000000000
-      internalID: 300304630803915100
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: delete_btn_2
-      rect:
-        serializedVersion: 2
-        x: 21
-        y: 3
+        x: 3
+        y: 0
         width: 16
-        height: 11
+        height: 17
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -190,20 +134,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 768354754acbf2440800000000000000
-      internalID: 4913353132509313127
+      spriteID: fd2d93d3c27b05180800000000000000
+      internalID: -9128595044046351649
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: delete_btn_3
+      name: player_run-Sheet_1
       rect:
         serializedVersion: 2
-        x: 21
-        y: 1
-        width: 13
-        height: 7
+        x: 23
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -212,20 +156,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3c850838f8ff06ca0800000000000000
-      internalID: -6025535309570090813
+      spriteID: 967cbd62ef125aa40800000000000000
+      internalID: 5378742705421272937
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: delete_btn_4
+      name: player_run-Sheet_2
       rect:
         serializedVersion: 2
-        x: 33
-        y: 1
-        width: 13
-        height: 9
+        x: 43
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -234,52 +178,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c306cc8147c1af1e0800000000000000
-      internalID: -2163385386040270788
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: delete_btn_5
-      rect:
-        serializedVersion: 2
-        x: 36
-        y: 3
-        width: 10
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e704508fe473150e0800000000000000
-      internalID: -2282982723792060290
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: delete_btn_6
-      rect:
-        serializedVersion: 2
-        x: 45
-        y: 1
-        width: 13
-        height: 13
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7c11a166a81429090800000000000000
-      internalID: -8029283122973896249
+      spriteID: a56b7910fa48fb680800000000000000
+      internalID: -8737118864894609830
       vertices: []
       indices: 
       edges: []
@@ -288,7 +188,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -298,13 +198,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      delete_btn_0: 2354842511820473249
-      delete_btn_1: 300304630803915100
-      delete_btn_2: 4913353132509313127
-      delete_btn_3: -6025535309570090813
-      delete_btn_4: -2163385386040270788
-      delete_btn_5: -2282982723792060290
-      delete_btn_6: -8029283122973896249
+      player_run-Sheet_0: -9128595044046351649
+      player_run-Sheet_1: 5378742705421272937
+      player_run-Sheet_2: -8737118864894609830
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
