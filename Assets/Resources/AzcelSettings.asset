@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AzcelSettings
   m_EditorClassIdentifier: Azcel::Azcel.AzcelSettings
   excelPaths:
-  - Assets/Excel
+  - "\u914D\u7F6E"
   codeOutputPath: Assets/Scripts/Tables
   dataOutputPath: Assets/Resources/TableData
   codeNamespace: Game.Tables

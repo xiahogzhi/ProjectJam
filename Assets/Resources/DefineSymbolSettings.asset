@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cc5ad88984dc8643a32b7066b850eb3, type: 3}
   m_Name: DefineSymbolSettings
   m_EditorClassIdentifier: Azathrix.Framework.Runtime::Azathrix.Framework.DefineSymbolSettings
-  defines: []
+  defines:
+  - symbol: AZCEL_EXCEL_READER
+    source: EnvInstaller
+    enabled: 1

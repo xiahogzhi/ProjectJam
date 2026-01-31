@@ -190,4 +190,14 @@ MonoBehaviour:
       hasCustomOrder: 0
       enabled: 1
       isAuto: 1
+    - typeName: Azcel.Editor.ExcelParsePhase
+      assemblyName: Azcel.Editor
+      displayName: ExcelParse
+      phaseId: ExcelParse
+      interfaceTypeName: Azcel.Editor.IConvertPhase
+      order: 100
+      defaultOrder: 100
+      hasCustomOrder: 0
+      enabled: 1
+      isAuto: 1
     hooks: []

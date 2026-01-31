@@ -43,6 +43,8 @@ MonoBehaviour:
     - Azathrix.Framework.Runtime
     - Azathrix.GameKit.Runtime
     - Azcel
+    - DOTween.Modules
+    - DOTweenPro.Scripts
     - EnhancedScroller_asmdef
     - FMODUnity
     - FMODUnityResonance

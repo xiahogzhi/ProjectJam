@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 530f699b3f3d73c4f906643d2a55b36a, type: 3}
   m_Name: EzInputSettings
   m_EditorClassIdentifier: Azathrix.EzInput::Azathrix.EzInput.Settings.EzInputSettings
-  inputActionAsset: {fileID: 0}
-  defaultControlScheme: Desktop
+  inputActionAsset: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  defaultControlScheme: Keyboard&Mouse
   autoCreatePlayerInput: 1
   defaultMap: Game
-  debugLog: 0
+  debugLog: 1
