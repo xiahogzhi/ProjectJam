@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d860a1f4da0331346a742177d062021e, type: 3}
   m_Name: MaskLayerSettings
   m_EditorClassIdentifier: Assembly-CSharp::MaskLayerSettings
-  _layerA: 0
-  _layerB: 0
-  _spriteMaterialA: {fileID: 0}
-  _spriteMaterialB: {fileID: 0}
+  _layerA: 7
+  _layerB: 8
+  _spriteMaterialA: {fileID: 2100000, guid: 59c3f32d5f9fa7d419d2204e0da333a8, type: 2}
+  _spriteMaterialB: {fileID: 2100000, guid: cf9d541adc65a2e4b85b5084ca15f573, type: 2}
