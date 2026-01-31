@@ -95,7 +95,7 @@ public class GamePlaySystem : ISystem
         Log.Info(LoadingPanel.Instance);
         Log.Info(_currentLevel);
         await LoadingPanel.Instance.ShowAsync();
-        await _uiSystem.ShowAsync<GamePanel>();
+        // await _uiSystem.ShowAsync<GamePanel>();
         await SceneManager.LoadSceneAsync("Empty").ToUniTask();
         await SceneManager.LoadSceneAsync(_currentLevel.SceneName).ToUniTask();
         await UniTask.WaitForSeconds(0.2f, true);
@@ -161,7 +161,7 @@ public class GamePlaySystem : ISystem
         Log.Info(LoadingPanel.Instance);
         Log.Info(_currentLevel);
         await LoadingPanel.Instance.ShowAsync();
-        await _uiSystem.ShowAsync<GamePanel>();
+        // await _uiSystem.ShowAsync<GamePanel>();
         await SceneManager.LoadSceneAsync(_currentLevel.SceneName).ToUniTask();
         await UniTask.WaitForSeconds(0.2f, true);
         await LoadingPanel.Instance.HideAsync();
