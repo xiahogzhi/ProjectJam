@@ -8,7 +8,7 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D))]
 public class SliceableCollider : MonoBehaviour
 {
-    [SerializeField] private BoxCollider2D _originalCollider;
+     private BoxCollider2D _originalCollider;
 
     // 预创建的5个子碰撞体
     private BoxCollider2D _topCollider;

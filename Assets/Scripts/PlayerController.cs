@@ -68,6 +68,7 @@ public class PlayerController : GameScript
     private bool _isFollow = true;
 
     private bool _isDead;
+    private bool _isStart;
 
     public bool isDead => _isDead;
 
@@ -85,6 +86,11 @@ public class PlayerController : GameScript
         if (other.CompareTag("EndPoint"))
         {
             AzathrixFramework.GetSystem<GamePlaySystem>().NextLevel();
+        }
+        else if (other.CompareTag("Bubble"))
+        {
+            _rigidbody2D.linearVelocityY = 0;
+            _rigidbody2D.AddForceY(_jumpForce, ForceMode2D.Impulse);
         }
     }
 
@@ -114,7 +120,8 @@ public class PlayerController : GameScript
 
     void Move(bool flag)
     {
-        if (_isDead)
+        _moveState = flag;
+        if (_isDead || !_isStart)
             return;
 
         if (_onGroundState)
@@ -126,7 +133,6 @@ public class PlayerController : GameScript
         }
 
 
-        _moveState = flag;
         if (!flag)
             _clearXVelocityFlag = true;
     }
@@ -143,6 +149,33 @@ public class PlayerController : GameScript
         _rigidbody2D.AddForceY(velocity, ForceMode2D.Impulse);
     }
 
+    async void Rebirth()
+    {
+        _rigidbody2D.gravityScale = 0;
+        var cancel = gameObject.GetCancellationTokenOnDestroy();
+        await UniTask.WaitForSeconds(0.5f, true, cancellationToken: cancel);
+        await _animator.PlayAsync("rebirth", cancel);
+        _isStart = true;
+        // _rigidbody2D.Unfreeze();
+        // _rigidbody2D.FreezeRotation();
+        _rigidbody2D.gravityScale = 1;
+        if (!_onGroundState)
+        {
+            _animator.Play("jump");
+        }
+        else
+        {
+            if (_moveState)
+            {
+                _animator.Play("move");
+            }
+            else
+            {
+                _animator.Play("idle");
+            }
+        }
+    }
+
     protected override void OnScriptInitialize()
     {
         base.OnScriptInitialize();
@@ -150,6 +183,8 @@ public class PlayerController : GameScript
         _playerCollider = GetComponent<Collider2D>();
         _animator = GetComponent<Animator>();
         _renderer = GetComponent<SpriteRenderer>();
+        // _rigidbody2D.FreezeAll();
+        Rebirth();
 
         _gameCamera = SystemEnvironment.instance.systemConfig.gameCamera;
 
@@ -161,12 +196,19 @@ public class PlayerController : GameScript
 
         _hurtChecker.OnHurtEvent += () => { Dead(); };
 
+        _groundChecker.OnPlatformEnterEvent += transform1 =>
+        {
+            transform.SetParent(transform1);
+        };
+
 
         _groundChecker.OnGroundStateChangedEvent += b =>
         {
             _onGroundState = b;
             if (_jumpCount <= 0 && b)
                 _jumpCount = 1;
+            if (!_isStart || isDead)
+                return;
             if (!b)
             {
                 _animator.Play("jump");
@@ -215,7 +257,7 @@ public class PlayerController : GameScript
             if (input.MapName != "Game")
                 return;
 
-            if (_isDead) return;
+            if (_isDead || !_isStart) return;
 
             switch (input.ActionName)
             {
@@ -347,7 +389,7 @@ public class PlayerController : GameScript
 
     private void Update()
     {
-        if (!_mask.IsActive && !isDead)
+        if (!_mask.IsActive && !isDead && _isStart)
         {
             // 跟随鼠标
             Vector3 mousePos = _gameCamera.ScreenToWorldPoint(_mousePos);
@@ -357,7 +399,7 @@ public class PlayerController : GameScript
 
     void OnMoveUpdate()
     {
-        if (_moveState)
+        if (_moveState && !isDead && _isStart)
         {
             if (_opDir.x > 0 && _onRightWallState)
                 return;
@@ -371,7 +413,7 @@ public class PlayerController : GameScript
     private void FixedUpdate()
     {
         OnMoveUpdate();
-        if (!_isDead)
+        if (!_isDead && _isStart)
             _renderer.flipX = _opDir.x < 0;
 
         if (_clearXVelocityFlag)

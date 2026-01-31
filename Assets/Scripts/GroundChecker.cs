@@ -6,34 +6,45 @@ using UnityEngine;
 public class GroundChecker : GameScript
 {
     public event Action<bool> OnGroundStateChangedEvent;
+    public event Action<Transform> OnPlatformEnterEvent;
     private int _count;
 
     private BoxCollider2D _boxCollider2D;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Ground") ||  other.CompareTag("Wall"))
+        if (other.CompareTag("Ground") || other.CompareTag("Wall") || other.CompareTag("Platform"))
         {
             if (_count == 0)
+            {
                 OnGroundStateChangedEvent?.Invoke(true);
+
+                if (other.CompareTag("Platform"))
+                    OnPlatformEnterEvent?.Invoke(other.transform);
+            }
+
             _count++;
         }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Ground")||  other.CompareTag("Wall"))
+        if (other.CompareTag("Ground") || other.CompareTag("Wall") || other.CompareTag("Platform"))
         {
             _count--;
             if (_count == 0)
+            {
                 OnGroundStateChangedEvent?.Invoke(false);
+                if (other.CompareTag("Platform"))
+                    OnPlatformEnterEvent?.Invoke(null);
+            }
         }
     }
 
     private void OnDrawGizmos()
     {
-        if (_boxCollider2D==null)
-            _boxCollider2D =  GetComponent<BoxCollider2D>();
+        if (_boxCollider2D == null)
+            _boxCollider2D = GetComponent<BoxCollider2D>();
         Gizmos.color = Color.blueViolet;
         Gizmos.DrawWireCube(_boxCollider2D.bounds.center, _boxCollider2D.bounds.size);
         Gizmos.color = Color.white;

@@ -10,30 +10,29 @@ public class MaskLayerSetter : MonoBehaviour
 {
     public enum MaskLayerType
     {
-        [LabelText("A 面")]
-        LayerA,
-        [LabelText("B 面")]
-        LayerB
+        [LabelText("A 面")] LayerA,
+        [LabelText("B 面")] LayerB
     }
 
-    [LabelText("当前层面")]
-    [OnValueChanged("OnLayerTypeChanged")]
-    [SerializeField]
+    [LabelText("当前层面")] [OnValueChanged("OnLayerTypeChanged")] [SerializeField]
     private MaskLayerType _currentLayer = MaskLayerType.LayerA;
 
-    [LabelText("设置粒子 Keyword")]
-    [SerializeField]
+    [LabelText("设置粒子 Keyword")] [SerializeField]
     private bool _setParticleKeyword = true;
 
-    [LabelText("包含子对象")]
-    [SerializeField]
-    private bool _includeChildren = true;
+    [LabelText("包含子对象")] [SerializeField] private bool _includeChildren = true;
 
     // 缓存的组件引用
     private SpriteRenderer[] _spriteRenderers;
     private ParticleSystemRenderer[] _particleRenderers;
 
     public MaskLayerType CurrentLayer => _currentLayer;
+
+    [OnInspectorInit]
+    void OnInspectorInitialize()
+    {
+        OnLayerTypeChanged();
+    }
 
     void Awake()
     {
@@ -50,10 +49,10 @@ public class MaskLayerSetter : MonoBehaviour
         else
         {
             var sr = GetComponent<SpriteRenderer>();
-            _spriteRenderers = sr != null ? new[] { sr } : Array.Empty<SpriteRenderer>();
+            _spriteRenderers = sr != null ? new[] {sr} : Array.Empty<SpriteRenderer>();
 
             var pr = GetComponent<ParticleSystemRenderer>();
-            _particleRenderers = pr != null ? new[] { pr } : Array.Empty<ParticleSystemRenderer>();
+            _particleRenderers = pr != null ? new[] {pr} : Array.Empty<ParticleSystemRenderer>();
         }
     }
 
