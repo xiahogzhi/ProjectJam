@@ -2057,6 +2057,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EndPoint (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8358377736759264373, guid: 5761498c40b16af469f740c18e9cf293, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3d5489a0c31746042b351cfe81ce2b92, type: 3}
     - target: {fileID: 8650165736867251736, guid: 5761498c40b16af469f740c18e9cf293, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.48
