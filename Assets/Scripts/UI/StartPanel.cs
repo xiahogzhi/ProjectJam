@@ -12,6 +12,7 @@ namespace UI
     {
         [SerializeField] private Button _startButton;
         [SerializeField] private Button _clearButton;
+        [SerializeField] private Button _exitButton;
 
         [Inject] private GamePlaySystem _playSystem;
 
@@ -21,6 +22,7 @@ namespace UI
             _startButton?.onClick.AddListener(() => { _playSystem.StartGame(); }
             );
             _clearButton?.onClick.AddListener(() => { ES3.DeleteKey(SaveKeys.LevelId); });
+            _exitButton?.onClick.AddListener(() => { Application.Quit(); });
         }
 
         public async UniTask OnLoading(ILoadingController controller)
