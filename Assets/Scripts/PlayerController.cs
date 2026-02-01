@@ -8,13 +8,18 @@ using Azathrix.Framework.Tools;
 using Azathrix.GameKit.Runtime.Behaviours;
 using Azathrix.GameKit.Runtime.Builder.PrefabBuilders;
 using Azathrix.GameKit.Runtime.Extensions;
+using Azcel;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using Framework.Games;
+using Game.Tables;
 using Sirenix.OdinInspector;
 using SoundSystems;
+using TMPro;
 using UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Playables;
 
 public class PlayerController : GameScript
 {
@@ -24,6 +29,9 @@ public class PlayerController : GameScript
     [SerializeField] private WallChecker _leftWallChecker;
     [SerializeField] private WallChecker _rightWallChecker;
     [SerializeField] private HurtChecker _hurtChecker;
+    [SerializeField] private Transform _bubble;
+    [SerializeField] private TMP_Text _bubbleText;
+
 
     [Title("卡墙推力配置")] [LabelText("最小推力")] [Tooltip("穿透刚超过阈值时的推力")] [SerializeField]
     private float _minPushForce = 2f;
@@ -78,15 +86,65 @@ public class PlayerController : GameScript
     {
     }
 
+    public struct OnPlayerRebirth
+    {
+    }
+
+    public struct OnPlayerEnd
+    {
+    }
+
+    async UniTask ShowDialogue(int id)
+    {
+        if (id == -1)
+        {
+            _bubble.gameObject.SetActive(false);
+            return;
+        }
+        
+        var azcel = AzathrixFramework.GetSystem<AzcelSystem>();
+        var d = azcel.GetConfig<DialogueConfig>(id);
+        if (d == null)
+        {
+            _bubble.gameObject.SetActive(false);
+            return;
+        }
+        _bubble.gameObject.SetActive(true);
+
+        _bubbleText.text = d.text;
+
+        _bubble.localScale = Vector3.zero;
+        _bubble.DOScale(1, 0.5f).SetUpdate(false).SetEase(Ease.OutCirc);
+        await UniTask.WaitForSeconds(0.5f, true);
+        await UniTask.WaitForSeconds(d.duration, true);
+        await ShowDialogue(d.next);
+    }
 
     // 用于检测重叠的缓冲区
     private List<Collider2D> _overlapBuffer = new();
+
+    async void EndPoint()
+    {
+        _isStart = false;
+        // Time.timeScale = 0;
+        AzathrixFramework.Dispatcher.Dispatch<OnPlayerEnd>();
+        var config = AzathrixFramework.GetSystem<GamePlaySystem>().currentLevel;
+        if (config.NextLevel == -1)
+        {
+            await UniTask.WaitForSeconds(0.3f, true);
+            await ShowDialogue(200);
+
+            await UniTask.WaitForSeconds(0.3f, true);
+        }
+
+        AzathrixFramework.GetSystem<GamePlaySystem>().NextLevel();
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("EndPoint"))
         {
-            AzathrixFramework.GetSystem<GamePlaySystem>().NextLevel();
+            EndPoint();
         }
         else if (other.CompareTag("Bubble"))
         {
@@ -161,13 +219,14 @@ public class PlayerController : GameScript
 
     async void Rebirth()
     {
+        
+        // Time.timeScale = 0;
         _rigidbody2D.gravityScale = 0;
         var cancel = gameObject.GetCancellationTokenOnDestroy();
         await UniTask.WaitForSeconds(0.5f, true, cancellationToken: cancel);
 
         AzathrixFramework.GetSystem<SoundSystem>().PlaySoundEffect("event:/特效音效/Rebirth");
         await _animator.PlayAsync("rebirth", cancel);
-        _isStart = true;
         // _rigidbody2D.Unfreeze();
         // _rigidbody2D.FreezeRotation();
         _rigidbody2D.gravityScale = 1;
@@ -186,6 +245,22 @@ public class PlayerController : GameScript
                 _animator.Play("idle");
             }
         }
+
+        var config = AzathrixFramework.GetSystem<GamePlaySystem>().currentLevel;
+        var current = config.Id;
+        if (current == 1)
+        {
+            await UniTask.WaitForSeconds(1f, true, cancellationToken: cancel);
+           _animator.Play("idle");
+            await ShowDialogue(100);
+            await UniTask.WaitForSeconds(0.3f, true, cancellationToken: cancel);
+        }
+
+
+        AzathrixFramework.Dispatcher.Dispatch<OnPlayerRebirth>();
+        
+        // Time.timeScale = 1;
+        _isStart = true;
     }
 
     protected override void OnScriptInitialize()

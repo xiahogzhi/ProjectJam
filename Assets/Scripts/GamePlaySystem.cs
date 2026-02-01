@@ -20,6 +20,8 @@ public class GamePlaySystem : ISystem
 
     private LevelConfig _currentLevel;
 
+    public LevelConfig currentLevel => _currentLevel;
+
     public async void StartGame()
     {
         if (_loading)

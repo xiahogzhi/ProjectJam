@@ -21,10 +21,24 @@ namespace UI
         protected override void OnScriptInitialize()
         {
             base.OnScriptInitialize();
-            _exitButton?.onClick.AddListener(() => { _playSystem.ExitGame(); });
-            _replayButton?.onClick.AddListener(() => { _playSystem.Replay(); });
+            _exitButton.onClick.AddListener(() => { _playSystem.ExitGame(); });
+            _replayButton.onClick.AddListener(() => { _playSystem.Replay(); });
 
+            _exitButton.enabled = false;
+            _replayButton.enabled = false;
+            
+            AzathrixFramework.Dispatcher.Subscribe((ref PlayerController.OnPlayerRebirth playerDead) =>
+            {
+                _replayButton.enabled = true;
+                _exitButton.enabled = true;
+            }).AddTo(this);
             AzathrixFramework.Dispatcher.Subscribe((ref PlayerController.OnPlayerDead playerDead) =>
+            {
+                _replayButton.enabled = false;
+                _exitButton.enabled = false;
+            }).AddTo(this);
+            
+            AzathrixFramework.Dispatcher.Subscribe((ref PlayerController.OnPlayerEnd playerDead) =>
             {
                 _replayButton.enabled = false;
                 _exitButton.enabled = false;

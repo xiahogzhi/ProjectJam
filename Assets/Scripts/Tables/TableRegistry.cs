@@ -14,6 +14,7 @@
                 system.SetTableLoader(Azcel.BinaryConfigTableLoader.Instance);
 
             system.RegisterTable(new LevelConfigTable());
+            system.RegisterTable(new DialogueConfigTable());
         }
     }
 }

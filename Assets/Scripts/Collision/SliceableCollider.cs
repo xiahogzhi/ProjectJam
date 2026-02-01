@@ -151,8 +151,8 @@ public class SliceableCollider : MonoBehaviour
         float overlapMinY = Mathf.Max(originalBounds.min.y, maskBounds.min.y);
         float overlapMaxY = Mathf.Min(originalBounds.max.y, maskBounds.max.y);
 
-        Debug.Log($"[SliceableCollider] Original: {originalBounds}, Mask: {maskBounds}");
-        Debug.Log($"[SliceableCollider] Overlap: minX={overlapMinX}, maxX={overlapMaxX}, minY={overlapMinY}, maxY={overlapMaxY}");
+        // Debug.Log($"[SliceableCollider] Original: {originalBounds}, Mask: {maskBounds}");
+        // Debug.Log($"[SliceableCollider] Overlap: minX={overlapMinX}, maxX={overlapMaxX}, minY={overlapMinY}, maxY={overlapMaxY}");
 
         // 更新4个子碰撞体
         // 上部分：原始顶部到重叠区域顶部
@@ -186,7 +186,7 @@ public class SliceableCollider : MonoBehaviour
         float width = maxX - minX;
         float height = maxY - minY;
 
-        Debug.Log($"[SliceableCollider] {name}: width={width}, height={height}");
+        // Debug.Log($"[SliceableCollider] {name}: width={width}, height={height}");
 
         // 太小就禁用
         if (width < 0.001f || height < 0.001f)
