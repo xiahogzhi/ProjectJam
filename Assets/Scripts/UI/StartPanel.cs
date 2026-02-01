@@ -21,7 +21,11 @@ namespace UI
             base.OnScriptInitialize();
             _startButton?.onClick.AddListener(() => { _playSystem.StartGame(); }
             );
-            _clearButton?.onClick.AddListener(() => { ES3.DeleteKey(SaveKeys.LevelId); });
+            _clearButton?.onClick.AddListener(() =>
+            {
+                ES3.DeleteKey(SaveKeys.LevelId);
+                ES3.DeleteKey("tutorial");
+            });
             _exitButton?.onClick.AddListener(() => { Application.Quit(); });
         }
 

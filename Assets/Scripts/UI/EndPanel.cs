@@ -14,6 +14,9 @@ namespace UI
         {
             base.OnScriptInitialize();
             ToStart();
+            
+            ES3.DeleteKey(SaveKeys.LevelId);
+            ES3.DeleteKey("tutorial");
         }
 
         async void ToStart()

@@ -20,6 +20,7 @@ using UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Playables;
+using UnityEngine.Profiling;
 
 public class PlayerController : GameScript
 {
@@ -101,7 +102,7 @@ public class PlayerController : GameScript
             _bubble.gameObject.SetActive(false);
             return;
         }
-        
+
         var azcel = AzathrixFramework.GetSystem<AzcelSystem>();
         var d = azcel.GetConfig<DialogueConfig>(id);
         if (d == null)
@@ -109,6 +110,7 @@ public class PlayerController : GameScript
             _bubble.gameObject.SetActive(false);
             return;
         }
+
         _bubble.gameObject.SetActive(true);
 
         _bubbleText.text = d.text;
@@ -219,7 +221,6 @@ public class PlayerController : GameScript
 
     async void Rebirth()
     {
-        
         // Time.timeScale = 0;
         _rigidbody2D.gravityScale = 0;
         var cancel = gameObject.GetCancellationTokenOnDestroy();
@@ -248,17 +249,18 @@ public class PlayerController : GameScript
 
         var config = AzathrixFramework.GetSystem<GamePlaySystem>().currentLevel;
         var current = config.Id;
-        if (current == 1)
+        if (current == 1 && !ES3.KeyExists("tutorial"))
         {
+            ES3.Save("tutorial", true);
             await UniTask.WaitForSeconds(1f, true, cancellationToken: cancel);
-           _animator.Play("idle");
+            _animator.Play("idle");
             await ShowDialogue(100);
             await UniTask.WaitForSeconds(0.3f, true, cancellationToken: cancel);
         }
 
 
         AzathrixFramework.Dispatcher.Dispatch<OnPlayerRebirth>();
-        
+
         // Time.timeScale = 1;
         _isStart = true;
     }
