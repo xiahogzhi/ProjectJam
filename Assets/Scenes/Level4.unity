@@ -928,7 +928,7 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: 6, y: 2, z: 0}
+  - first: {x: 6, y: 0, z: 0}
     second:
       serializedVersion: 2
       m_TileIndex: 1
@@ -938,7 +938,7 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: 7, y: 2, z: 0}
+  - first: {x: 7, y: 0, z: 0}
     second:
       serializedVersion: 2
       m_TileIndex: 1
@@ -948,7 +948,7 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: 8, y: 2, z: 0}
+  - first: {x: 8, y: 0, z: 0}
     second:
       serializedVersion: 2
       m_TileIndex: 1
@@ -958,7 +958,7 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: 9, y: 2, z: 0}
+  - first: {x: 9, y: 0, z: 0}
     second:
       serializedVersion: 2
       m_TileIndex: 1
@@ -1280,7 +1280,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4278844158291811340, guid: 1d74cd99bdac7554596cc00b35711f81, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.46
+      value: 0.45
       objectReference: {fileID: 0}
     - target: {fileID: 4278844158291811340, guid: 1d74cd99bdac7554596cc00b35711f81, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2295,11 +2295,11 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 3d5489a0c31746042b351cfe81ce2b92, type: 3}
     - target: {fileID: 8650165736867251736, guid: 5761498c40b16af469f740c18e9cf293, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.24
+      value: 8.03
       objectReference: {fileID: 0}
     - target: {fileID: 8650165736867251736, guid: 5761498c40b16af469f740c18e9cf293, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.09
+      value: 2.22
       objectReference: {fileID: 0}
     - target: {fileID: 8650165736867251736, guid: 5761498c40b16af469f740c18e9cf293, type: 3}
       propertyPath: m_LocalPosition.z
