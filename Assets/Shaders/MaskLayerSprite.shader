@@ -78,55 +78,69 @@ Shader "Custom/MaskLayerSprite"
             fixed4 frag (v2f i) : SV_Target
             {
                 fixed4 col = tex2D(_MainTex, i.uv) * i.color;
-
-                // 如果效果被禁用，根据层级和显示设置决定是否显示
+                // --- [原有逻辑] 全局禁用处理 ---
                 if (_GlobalMaskEnabled < 0.5)
                 {
                     #if _LAYER_LAYERA
-                        if (_GlobalMaskShowLayerA < 0.5)
-                            col.a = 0;
+                        if (_GlobalMaskShowLayerA < 0.5) col.a = 0;
                     #elif _LAYER_LAYERB
-                        if (_GlobalMaskShowLayerB < 0.5)
-                            col.a = 0;
+                        if (_GlobalMaskShowLayerB < 0.5) col.a = 0;
                     #endif
                     return col;
                 }
 
-                // 检查是否在 mask 范围内
+                // 计算边界判定数据
                 float2 halfSize = _GlobalMaskSize * 0.5;
-                float2 minBound = _GlobalMaskCenter - halfSize;
-                float2 maxBound = _GlobalMaskCenter + halfSize;
+                // 计算当前像素点距离遮罩边缘的距离 (负数表示在内部，正数表示在外部)
+                float2 d = abs(i.worldPos.xy - _GlobalMaskCenter) - halfSize;
+                // 找到 X 和 Y 方向最靠近边缘的那一个距离
+                float distToEdge = max(d.x, d.y);
 
-                bool insideMask = i.worldPos.x >= minBound.x && i.worldPos.x <= maxBound.x &&
-                                  i.worldPos.y >= minBound.y && i.worldPos.y <= maxBound.y;
+                // 判定是否在矩形内（包含边框）
+                float borderThickness = 0.04;
+                bool insideMask = distToEdge <= 0;
+                bool isBorder = distToEdge > -borderThickness && distToEdge <= 0;
 
                 #if _LAYER_LAYERA
-                    // A 层：mask 内隐藏
-                    if (insideMask)
-                    {
-                        col.a = 0;
-                    }
-                    else
-                    {
-                        col.a *= _OutsideAlpha;
-                    }
+                    // A 层：遮罩内部完全掏空
+                    if (insideMask) col.a = 0;
+                    else col.a *= _OutsideAlpha;
                 #elif _LAYER_LAYERB
-                    // B 层：mask 内根据激活状态显示
+                    // B 层：遮罩内部显示
                     if (insideMask)
                     {
-                        float targetAlpha = lerp(_GlobalMaskPreviewAlpha, _GlobalMaskActiveAlpha, _GlobalMaskActive);
-                        col.a *= targetAlpha;
+                        if (isBorder)
+                        {
+                            // --- 边框绘制逻辑 ---
+                            if (_GlobalMaskActive > 0.5)
+                            {
+                                // 1. 激活状态：紫色 
+                                col = fixed4(0.1225, 0.1125, 0.14, 1); 
+                            }
+                            else
+                            {
+                                // 2. 未激活状态：白色虚线
+                                // 使用世界坐标计算虚线，5.0 是频率，0.5 是断开比例
+                                float dash = step(0.5, frac((i.worldPos.x + i.worldPos.y) * 5.0));
+                               if (dash > 0.5) 
+                                {
+                                     col = fixed4(0.1225, 0.1125, 0.14, 1); 
+                                }
+                                float targetAlpha = lerp(_GlobalMaskPreviewAlpha, _GlobalMaskActiveAlpha, _GlobalMaskActive);
+                                col.a *= targetAlpha;
+                            }
+                        }
+                        else
+                        {
+                            // 遮罩内部图像像素
+                            float targetAlpha = lerp(_GlobalMaskPreviewAlpha, _GlobalMaskActiveAlpha, _GlobalMaskActive);
+                            col.a *= targetAlpha;
+                        }
                     }
                     else
                     {
-                        // mask 外隐藏
-                        col.a = 0;
-                    }
-                #else
-                    // 默认当作 A 层
-                    if (insideMask)
-                    {
-                        col.a = 0;
+                        // Mask 范围外完全隐藏
+                        col.a = 0; 
                     }
                 #endif
 
