@@ -114,20 +114,23 @@ Shader "Custom/MaskLayerSprite"
                             // --- 边框绘制逻辑 ---
                             if (_GlobalMaskActive > 0.5)
                             {
-                                // 1. 激活状态：紫色 
-                                col = fixed4(0.1225, 0.1125, 0.14, 1); 
+                                // 1. 激活状态：粉色
+                                col = fixed4(0.94,0.48,0.54,1); 
                             }
                             else
                             {
-                                // 2. 未激活状态：白色虚线
+                                // 2. 未激活状态：粉色虚线
                                 // 使用世界坐标计算虚线，5.0 是频率，0.5 是断开比例
                                 float dash = step(0.5, frac((i.worldPos.x + i.worldPos.y) * 5.0));
                                if (dash > 0.5) 
                                 {
-                                     col = fixed4(0.1225, 0.1125, 0.14, 1); 
+                                     col = fixed4(0.94,0.48,0.54,1);  
                                 }
-                                float targetAlpha = lerp(_GlobalMaskPreviewAlpha, _GlobalMaskActiveAlpha, _GlobalMaskActive);
-                                col.a *= targetAlpha;
+                                else
+                                {
+                                    float targetAlpha = lerp(_GlobalMaskPreviewAlpha, _GlobalMaskActiveAlpha, _GlobalMaskActive);
+                                    col.a *= targetAlpha;
+                                }
                             }
                         }
                         else
