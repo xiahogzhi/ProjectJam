@@ -1047,6 +1047,16 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
+  - first: {x: -5, y: -3, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 1
+      m_TileSpriteIndex: 1
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
   - first: {x: -4, y: -3, z: 0}
     second:
       serializedVersion: 2
@@ -1111,19 +1121,19 @@ Tilemap:
   m_TileAssetArray:
   - m_RefCount: 26
     m_Data: {fileID: 11400000, guid: e1e31747123b7e241835ec4769fe59e9, type: 2}
-  - m_RefCount: 7
+  - m_RefCount: 8
     m_Data: {fileID: 11400000, guid: 0be8a9704deb7b34a99588ad38b30316, type: 2}
   - m_RefCount: 0
     m_Data: {fileID: 0}
   m_TileSpriteArray:
   - m_RefCount: 26
     m_Data: {fileID: 21300000, guid: bf38f38a2f033ec459a097ce33c2e03d, type: 3}
-  - m_RefCount: 7
+  - m_RefCount: 8
     m_Data: {fileID: 21300000, guid: f0fe6aeca75e5884b9fcc3beb7db0525, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
   m_TileMatrixArray:
-  - m_RefCount: 33
+  - m_RefCount: 34
     m_Data:
       e00: 1
       e01: 0
@@ -1142,7 +1152,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 33
+  - m_RefCount: 34
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -1260,7 +1270,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1468116430687989734, guid: 1d74cd99bdac7554596cc00b35711f81, type: 3}
       propertyPath: m_Size.x
-      value: 0.066119686
+      value: 0.09748545
       objectReference: {fileID: 0}
     - target: {fileID: 1468116430687989734, guid: 1d74cd99bdac7554596cc00b35711f81, type: 3}
       propertyPath: m_Size.y
@@ -1268,7 +1278,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1468116430687989734, guid: 1d74cd99bdac7554596cc00b35711f81, type: 3}
       propertyPath: m_Offset.x
-      value: -0.08214833
+      value: -0.09783122
       objectReference: {fileID: 0}
     - target: {fileID: 1468116430687989734, guid: 1d74cd99bdac7554596cc00b35711f81, type: 3}
       propertyPath: m_Offset.y
