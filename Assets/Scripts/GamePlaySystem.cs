@@ -1,4 +1,5 @@
-﻿using Azathrix.EzUI.Core;
+using Azathrix.EzUI.Core;
+using Azathrix.Framework.Core;
 using Azathrix.Framework.Core.Attributes;
 using Azathrix.Framework.Interfaces;
 using Azathrix.Framework.Tools;
@@ -15,6 +16,12 @@ using UnityEngine.SceneManagement;
 [RequireSystem(typeof(AzcelSystem))]
 public class GamePlaySystem : ISystem
 {
+    /// <summary>关卡加载完成事件，在关卡场景加载完成并准备就绪时发送</summary>
+    public struct OnLevelLoaded
+    {
+        public LevelConfig levelConfig;
+    }
+
     [Inject] private UISystem _uiSystem;
     [Inject] private AzcelSystem _azcelSystem;
 
@@ -48,6 +55,9 @@ public class GamePlaySystem : ISystem
         await LoadingPanel.Instance.HideAsync();
         Time.timeScale = 1;
         _loading = false;
+        
+        // 发送关卡加载完成事件
+        AzathrixFramework.Dispatcher.Dispatch(new OnLevelLoaded { levelConfig = _currentLevel });
     }
 
     public async void EndGame()
@@ -124,6 +134,9 @@ public class GamePlaySystem : ISystem
 
         Time.timeScale = 1;
         _loading = false;
+        
+        // 发送关卡加载完成事件
+        AzathrixFramework.Dispatcher.Dispatch(new OnLevelLoaded { levelConfig = _currentLevel });
     }
 
     public async void GotoLevel(int nextLevel)
@@ -157,6 +170,9 @@ public class GamePlaySystem : ISystem
 
         Time.timeScale = 1;
         _loading = false;
+        
+        // 发送关卡加载完成事件
+        AzathrixFramework.Dispatcher.Dispatch(new OnLevelLoaded { levelConfig = _currentLevel });
     }
 
     public async void NextLevel()
@@ -191,5 +207,8 @@ public class GamePlaySystem : ISystem
 
         Time.timeScale = 1;
         _loading = false;
+        
+        // 发送关卡加载完成事件
+        AzathrixFramework.Dispatcher.Dispatch(new OnLevelLoaded { levelConfig = _currentLevel });
     }
 }
