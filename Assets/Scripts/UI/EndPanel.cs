@@ -21,7 +21,7 @@ namespace UI
 
         async void ToStart()
         {
-            await UniTask.WaitForSeconds(3,true);
+            await UniTask.WaitForSeconds(10,true);
             AzathrixFramework.GetSystem<GamePlaySystem>().ExitGame();
         }
 
