@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Azathrix.EzInput.Core;
 using Azathrix.EzInput.Events;
@@ -373,7 +373,7 @@ public class PlayerController : GameScript
                     break;
                 case "Pointer":
                 {
-                    if (input.Phase == InputActionPhase.Performed)
+                    if (input.Phase == InputActionPhase.Started || input.Phase == InputActionPhase.Performed)
                     {
                         _mousePos = input.ReadValue<Vector2>();
 
@@ -393,7 +393,7 @@ public class PlayerController : GameScript
                 }
                     break;
             }
-        }).AddTo(this);
+        }).AddTo(this); 
     }
 
     void SwitchFollow()
@@ -475,13 +475,56 @@ public class PlayerController : GameScript
 
     private void Update()
     {
+
+        #if UNITY_WEBGL && !UNITY_EDITOR
+                // WebGL 下 EzInput 的 InputActionEvent 不会触发，改用直接轮询设备 API（与上面空格键同一套 API）
+                PollInputWebGL();
+        #endif
+
         if (!_mask.IsActive && !isDead && _isStart)
         {
-            // 跟随鼠标
-            Vector3 mousePos = _gameCamera.ScreenToWorldPoint(_mousePos);
-            _mask.SetPosition(mousePos);
+            // 兼容写法：如果事件分发里的 _mousePos 没更新，就直接抓取硬件位置
+            Vector2 screenPoint = (_mousePos == Vector2.zero) && Mouse.current != null
+                ? Mouse.current.position.ReadValue()
+                : _mousePos;
+
+            Vector3 screenPosWithDepth = new Vector3(screenPoint.x, screenPoint.y, Mathf.Abs(_gameCamera.transform.position.z));
+            Vector3 worldPos = _gameCamera.ScreenToWorldPoint(screenPosWithDepth);
+            worldPos.z = 0;
+            _mask.SetPosition(worldPos);
         }
     }
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+    /// <summary>
+    /// WebGL 下 InputActionEvent 不触发，直接轮询 Keyboard/Mouse（与“空格键响了”同一套 API）。
+    /// </summary>
+    private void PollInputWebGL()
+    {
+        if (_isDead || !_isStart) return;
+
+        var key = Keyboard.current;
+        if (key != null)
+        {
+            float move = 0f;
+            if (key.aKey.isPressed || key.leftArrowKey.isPressed) move = -1f;
+            if (key.dKey.isPressed || key.rightArrowKey.isPressed) move = 1f;
+            _opDir = new Vector2(move, 0f);
+            Move(move != 0f);
+
+            if (key.spaceKey.wasPressedThisFrame)
+                Jump();
+        }
+
+        var mouse = Mouse.current;
+        if (mouse != null)
+        {
+            _mousePos = mouse.position.ReadValue();
+            if (mouse.leftButton.wasPressedThisFrame)
+                SwitchFollow();
+        }
+    }
+#endif
 
     void OnMoveUpdate()
     {
